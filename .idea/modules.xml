@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/parsers.iml" filepath="$PROJECT_DIR$/.idea/parsers.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pmml_pymcBN.iml" filepath="$PROJECT_DIR$/.idea/pmml_pymcBN.iml" />
     </modules>
   </component>
 </project>
