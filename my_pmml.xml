@@ -15,7 +15,7 @@
     <DataField datatype="double" name="g" optype="continuous"/>
     <DataField datatype="double" name="t" optype="continuous"/>
     <DataField datatype="double" name="V" optype="continuous"/>
-    <DataField datatype="double" name="Density" optype="continuous"/>
+    <DataField datatype="double" name="rho" optype="continuous"/>
     <DataField datatype="double" name="H" optype="continuous"/>
     <DataField datatype="double" name="C_p" optype="continuous"/>
     <DataField datatype="double" name="T_i" optype="continuous"/>
@@ -37,7 +37,7 @@
       <MiningField name="g" usagetype="target"/>
       <MiningField name="t" usagetype="target"/>
       <MiningField name="V" usagetype="target"/>
-      <MiningField name="Density" usagetype="target"/>
+      <MiningField name="rho" usagetype="target"/>
       <MiningField name="H" usagetype="target"/>
       <MiningField name="C_p" usagetype="target"/>
       <MiningField name="T_i" usagetype="target"/>
@@ -49,10 +49,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.008600</Constant>
+              <Constant dataType="double">0.0086</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">0.008300</Constant>
+              <Constant dataType="double">0.0083</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -61,10 +61,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.000700</Constant>
+              <Constant dataType="double">0.0007</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x0000000013169668&gt;</Constant>
+              <Constant dataType="double">0.0002</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -73,10 +73,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x00000000133C4588&gt;</Placeholder>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x0000000013F9A358&gt;</Placeholder>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -85,10 +85,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.002800</Constant>
+              <Constant dataType="double">0.0028</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">0.002500</Constant>
+              <Constant dataType="double">0.0025</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -97,10 +97,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.000600</Constant>
+              <Constant dataType="double">0.0006</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x00000000131695F8&gt;</Constant>
+              <Constant dataType="double">0.0003</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -109,10 +109,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x0000000013BCB128&gt;</Placeholder>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x0000000014478828&gt;</Placeholder>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -121,10 +121,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.013000</Constant>
+              <Constant dataType="double">0.013</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">0.010000</Constant>
+              <Constant dataType="double">0.01</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -133,10 +133,10 @@
         <ContinuousDistribution>
           <UniformDistributionForBN>
             <Upper>
-              <Constant dataType="double">0.001300</Constant>
+              <Constant dataType="double">0.0013</Constant>
             </Upper>
             <Lower>
-              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x0000000013169B38&gt;</Constant>
+              <Constant dataType="double">0.0008</Constant>
             </Lower>
           </UniformDistributionForBN>
         </ContinuousDistribution>
@@ -145,10 +145,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x0000000014478908&gt;</Placeholder>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function &lt;lambda&gt; at 0x00000000152F6588&gt;</Placeholder>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -157,10 +157,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">0.500000</Constant>
+              <Constant dataType="double">0.5</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">0.010000</Constant>
+              <Constant dataType="double">0.0001</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -169,10 +169,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">0.002000</Constant>
+              <Constant dataType="double">0.002</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">0.000100</Constant>
+              <Constant dataType="double">1e-08</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -181,10 +181,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">0.015000</Constant>
+              <Constant dataType="double">0.015</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">&lt;function vol_p at 0x0000000013169588&gt;</Constant>
+              <Constant dataType="double">2.5e-07</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -193,19 +193,19 @@
         <ContinuousDistribution>
           <DETERMINISTIC_NODE_NEEDED>
             <VALUE_OF_DETERMINISTIC_NODE>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function vol_p at 0x00000000134E2A58&gt;</Placeholder>
             </VALUE_OF_DETERMINISTIC_NODE>
           </DETERMINISTIC_NODE_NEEDED>
         </ContinuousDistribution>
       </ContinuousNode>
-      <ContinuousNode name="Density">
+      <ContinuousNode name="rho">
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">8238.000000</Constant>
+              <Constant dataType="double">8238.0</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">10.000000</Constant>
+              <Constant dataType="double">100.0</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -214,10 +214,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">270000.000000</Constant>
+              <Constant dataType="double">270000.0</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">3000.000000</Constant>
+              <Constant dataType="double">9000000.0</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -226,10 +226,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">500.000000</Constant>
+              <Constant dataType="double">500.0</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">5.000000</Constant>
+              <Constant dataType="double">25.0</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -238,10 +238,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">303.000000</Constant>
+              <Constant dataType="double">303.0</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">0.300000</Constant>
+              <Constant dataType="double">0.09</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -250,10 +250,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Constant dataType="double">1628.000000</Constant>
+              <Constant dataType="double">1628.0</Constant>
             </Mean>
             <Variance>
-              <Constant dataType="double">&lt;function nrg at 0x00000000131694A8&gt;</Constant>
+              <Constant dataType="double">100.0</Constant>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -262,7 +262,7 @@
         <ContinuousDistribution>
           <DETERMINISTIC_NODE_NEEDED>
             <VALUE_OF_DETERMINISTIC_NODE>
-              <Placeholder dataType="N/A"/>
+              <Placeholder dataType="N/A">&lt;function nrg at 0x0000000014478898&gt;</Placeholder>
             </VALUE_OF_DETERMINISTIC_NODE>
           </DETERMINISTIC_NODE_NEEDED>
         </ContinuousDistribution>

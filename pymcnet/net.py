@@ -2,6 +2,9 @@ import numpy as np
 import pymc3 as pm
 import networkx as nx
 from collections import OrderedDict
+from lxml import etree as ET
+from lxml.etree import Element,SubElement
+import getpass
 
 class BayesianNetwork(nx.DiGraph):
     """
@@ -68,6 +71,155 @@ class BayesianNetwork(nx.DiGraph):
             print "Dists of type {} are not implemented".format(self.node[n]['dist'])
             raise NotImplementedError
 
+    def expr_tree(self, n, var):
+        """
+        if available (req. for pmml parsing), parse a node's expression definition for variable 'var'.
+        Uses Sympy to create symbolic representations of variables and to parse a tree for the equation.
+        :param n: the name of the node in question
+        :param var: the variable for which this node has an expression (i.e. inside lambda function)
+        :return: xml -like tree (string form)
+        """
+        try:
+            import sympy as sy
+            from sympy.printing.mathml import mathml
+        except ImportError:
+            print 'Sympy is currently needed to parse node function expressions to XML trees'
+            raise
+        variables = sy.symbols(self.nodes())
+        expr = sy.sympify(self.node[n]['exprs'][var])
+        print mathml(expr)
+        return mathml(expr)
+
+    def toPMML(self, filename):
+        """Write the trained model to PMML. Return PMML as string"""
+        # X = self.xTrain;
+        # Y = self.yTrain;
+        # gamma = self.gamma
+        # nugget = self.nugget
+        # k_lambda = self.k_lambda
+
+        def trans_root(description=None, copyright=None, annotation=None):
+            """Some basic information about the document """
+            username = str(getpass.getuser())
+            py_version = "0.1"
+
+            PMML_version = "4.3"
+            xmlns = "http://www.dmg.org/PMML-4_2"
+            PMML = root = Element('pmml', xmlns=xmlns, version=PMML_version)
+
+            # pmml level
+            if copyright is None:
+                copyright = "Copyright (c) 2015 {0}".format(username)
+            if description is None:
+                description = "Bayesian Network Model"
+            Header = SubElement(PMML, "header", copyright=copyright, description=description)
+
+            if annotation is not None:
+                ET.Element(Header, "Annotation").text = annotation
+            return PMML
+
+        def trans_dataDictionary(PMML):
+            """
+            DataField level
+            TODO: make fit BN style
+            """
+            toStr = "{0}".format
+            node_list = self.nodes()
+            DataDictionary = SubElement(PMML, "DataDictionary", numberoffields=toStr(len(node_list)))
+
+            # only continuous supported currently
+            for node_name in node_list:
+                SubElement(DataDictionary, "DataField", name=node_name,optype="continuous", datatype="double")
+
+            # for it_name in targetName:
+            #     SubElement(DataDictionary, "datafield", name=it_name,optype="continuous", datatype="double" )
+
+            return PMML
+
+        def trans_miningSchema(BayesianNetworkModel):
+            """
+            Create Mining Schema
+            """
+            active_nodes = [n for n in self.nodes() if 'observed' in self.node[n]]
+            target_nodes = [n for n in self.nodes() if not 'observed' in self.node[n]]
+            MiningSchema = SubElement(BayesianNetworkModel, "MiningSchema")
+
+            for node_name in active_nodes:
+                SubElement(MiningSchema, "MiningField", name=node_name, usagetype="active")
+
+            for it_name in target_nodes:
+                SubElement(MiningSchema, "MiningField", name=it_name, usagetype="target")
+
+            return BayesianNetworkModel
+
+        def trans_BN(PMML):
+            """Create BayesianNetworkModel level"""
+            BayesianNetworkModel = SubElement(PMML, "BayesianNetworkModel")
+            BayesianNetworkModel.set("modelName", "Bayesian Network Model")
+            BayesianNetworkModel.set("functionName", "regression")
+            return BayesianNetworkModel
+
+        def trans_map(node_data):
+            dic = {
+                'Uniform': 'UniformDistributionForBN',
+                'Normal': 'NormalDistributionForBN',
+                'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
+                'lower': 'Lower',
+                'upper': 'Upper',
+                'mu': 'Mean',
+                'sd': 'Variance',
+                'var': 'VALUE_OF_DETERMINISTIC_NODE'
+            }
+            return dic[node_data]
+
+        def trans_networkNodes(BayesianNetworkModel):
+            """Create Node Levels"""
+            BayesianNetworkNodes = SubElement(BayesianNetworkModel, "BayesianNetworkNodes")
+            for node in self.nodes_iter(data=True):
+                nodeDef = SubElement(BayesianNetworkNodes, "ContinuousNode", name=node[0])
+                distDef = SubElement(nodeDef, "ContinuousDistribution")
+                nodeDist = SubElement(distDef, trans_map(node[1]['dist_type']))
+                toStr = "{0}".format
+                print node[0]
+
+                for varname in self.get_args(node[0]):
+                    vardef = SubElement(nodeDist, trans_map(varname))
+                    if isinstance(node[1][varname], (int, long, float, complex)):
+                        print '\t', varname, toStr(float(node[1][varname]))
+                        value = SubElement(vardef, 'Constant', dataType="double")
+                        if varname == 'sd':  # need variance, not SD
+                            val = float(node[1][varname])**2
+                            value.text = toStr(val)
+                        else:
+                            val = float(node[1][varname])
+                            value.text = toStr(val)
+                    else:
+                        print '\t', varname, 'unknown_func'
+                        func_expr = self.expr_tree(node[0], varname)
+                        value = SubElement(vardef, 'Placeholder', dataType="N/A")
+                        # value.append(ET.fromstring(func_expr))
+                        value.text = toStr(node[1][varname])
+                #     SubElement(MiningSchema, "MiningField", name=it_name, usagetype="target")
+            return BayesianNetworkModel
+
+        cw = "DMG.org"
+        # xrow, yrow, xcol, ycol = trans_get_dimension(X, Y)
+        featureName, targetName = None, None #trans_name(xcol, ycol)
+        # Start constructing the XML Tree
+        PMML = trans_root(copyright=cw)
+        PMML = trans_dataDictionary(PMML)
+        BNM = trans_BN(PMML)
+        BNM = trans_miningSchema(BNM)
+        BNM = trans_networkNodes(BNM)
+        # GPM = trans_kernel(GPM, k_lambda, nugget, gamma, xcol, 'squared_exponential')
+        # GPData = trans_traininginstances(GPM, xrow, xcol + ycol)
+        # trans_instancefields(GPData, featureName, targetName)
+        # trans_inlinetable(GPData, featureName, targetName, X, Y)
+        # Write the tree to file
+        tree = ET.ElementTree(PMML)
+        tree.write(filename, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        print 'Wrote PMML file to {}'.format(filename)
+
 
 def draw_net(D):
     try:
@@ -92,6 +244,7 @@ def draw_net(D):
     except:
         print 'You probably need to install Graphviz or have a working "dot" command in your PATH.'
         raise
+
 
 def instantiate_pm(D):
     """
