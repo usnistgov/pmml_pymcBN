@@ -1,0 +1,272 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pmml version="4.3" xmlns="http://www.dmg.org/PMML-4_2">
+  <header copyright="DMG.org" description="Bayesian Network Model"/>
+  <DataDictionary numberoffields="19">
+    <DataField datatype="double" name="mu_l" optype="continuous"/>
+    <DataField datatype="double" name="sd_l" optype="continuous"/>
+    <DataField datatype="double" name="l" optype="continuous"/>
+    <DataField datatype="double" name="mu_h" optype="continuous"/>
+    <DataField datatype="double" name="sd_h" optype="continuous"/>
+    <DataField datatype="double" name="h" optype="continuous"/>
+    <DataField datatype="double" name="mu_e" optype="continuous"/>
+    <DataField datatype="double" name="sd_e" optype="continuous"/>
+    <DataField datatype="double" name="e" optype="continuous"/>
+    <DataField datatype="double" name="L" optype="continuous"/>
+    <DataField datatype="double" name="g" optype="continuous"/>
+    <DataField datatype="double" name="t" optype="continuous"/>
+    <DataField datatype="double" name="V" optype="continuous"/>
+    <DataField datatype="double" name="Density" optype="continuous"/>
+    <DataField datatype="double" name="H" optype="continuous"/>
+    <DataField datatype="double" name="C_p" optype="continuous"/>
+    <DataField datatype="double" name="T_i" optype="continuous"/>
+    <DataField datatype="double" name="T_f" optype="continuous"/>
+    <DataField datatype="double" name="Energy" optype="continuous"/>
+  </DataDictionary>
+  <BayesianNetworkModel modelName="Bayesian Network Model" functionName="regression">
+    <MiningSchema>
+      <MiningField name="l" usagetype="active"/>
+      <MiningField name="h" usagetype="active"/>
+      <MiningField name="e" usagetype="active"/>
+      <MiningField name="mu_l" usagetype="target"/>
+      <MiningField name="sd_l" usagetype="target"/>
+      <MiningField name="mu_h" usagetype="target"/>
+      <MiningField name="sd_h" usagetype="target"/>
+      <MiningField name="mu_e" usagetype="target"/>
+      <MiningField name="sd_e" usagetype="target"/>
+      <MiningField name="L" usagetype="target"/>
+      <MiningField name="g" usagetype="target"/>
+      <MiningField name="t" usagetype="target"/>
+      <MiningField name="V" usagetype="target"/>
+      <MiningField name="Density" usagetype="target"/>
+      <MiningField name="H" usagetype="target"/>
+      <MiningField name="C_p" usagetype="target"/>
+      <MiningField name="T_i" usagetype="target"/>
+      <MiningField name="T_f" usagetype="target"/>
+      <MiningField name="Energy" usagetype="target"/>
+    </MiningSchema>
+    <BayesianNetworkNodes>
+      <ContinuousNode name="mu_l">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.008600</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">0.008300</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="sd_l">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.000700</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x0000000013169668&gt;</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="l">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Placeholder dataType="N/A"/>
+            </Mean>
+            <Variance>
+              <Placeholder dataType="N/A"/>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="mu_h">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.002800</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">0.002500</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="sd_h">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.000600</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x00000000131695F8&gt;</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="h">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Placeholder dataType="N/A"/>
+            </Mean>
+            <Variance>
+              <Placeholder dataType="N/A"/>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="mu_e">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.013000</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">0.010000</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="sd_e">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">0.001300</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">&lt;function &lt;lambda&gt; at 0x0000000013169B38&gt;</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="e">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Placeholder dataType="N/A"/>
+            </Mean>
+            <Variance>
+              <Placeholder dataType="N/A"/>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="L">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">0.500000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">0.010000</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="g">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">0.002000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">0.000100</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="t">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">0.015000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">&lt;function vol_p at 0x0000000013169588&gt;</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="V">
+        <ContinuousDistribution>
+          <DETERMINISTIC_NODE_NEEDED>
+            <VALUE_OF_DETERMINISTIC_NODE>
+              <Placeholder dataType="N/A"/>
+            </VALUE_OF_DETERMINISTIC_NODE>
+          </DETERMINISTIC_NODE_NEEDED>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="Density">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">8238.000000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">10.000000</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="H">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">270000.000000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">3000.000000</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="C_p">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">500.000000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">5.000000</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="T_i">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">303.000000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">0.300000</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="T_f">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <Constant dataType="double">1628.000000</Constant>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">&lt;function nrg at 0x00000000131694A8&gt;</Constant>
+            </Variance>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="Energy">
+        <ContinuousDistribution>
+          <DETERMINISTIC_NODE_NEEDED>
+            <VALUE_OF_DETERMINISTIC_NODE>
+              <Placeholder dataType="N/A"/>
+            </VALUE_OF_DETERMINISTIC_NODE>
+          </DETERMINISTIC_NODE_NEEDED>
+        </ContinuousDistribution>
+      </ContinuousNode>
+    </BayesianNetworkNodes>
+  </BayesianNetworkModel>
+</pmml>
