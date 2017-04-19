@@ -8,8 +8,10 @@ import getpass
 
 class BayesianNetwork(nx.DiGraph):
     """
-    keeps track of the order in which nodes are added to the graph,
-    and the order in which neighbors are declared
+    - keeps track of the order in which nodes are added to the graph,
+      and the order in which neighbors are declared
+
+    - Adds method to serialize supported models as PMML BayesianNetworkModel's
     """
     node_dict_factory = OrderedDict
     adjlist_dict_factory = OrderedDict
@@ -71,32 +73,9 @@ class BayesianNetwork(nx.DiGraph):
             print "Dists of type {} are not implemented".format(self.node[n]['dist'])
             raise NotImplementedError
 
-    def expr_tree(self, n, var):
-        """
-        if available (req. for pmml parsing), parse a node's expression definition for variable 'var'.
-        Uses Sympy to create symbolic representations of variables and to parse a tree for the equation.
-        :param n: the name of the node in question
-        :param var: the variable for which this node has an expression (i.e. inside lambda function)
-        :return: xml -like tree (string form)
-        """
-        try:
-            import sympy as sy
-            from sympy.printing.mathml import mathml
-        except ImportError:
-            print 'Sympy is currently needed to parse node function expressions to XML trees'
-            raise
-        variables = sy.symbols(self.nodes())
-        expr = sy.sympify(self.node[n]['exprs'][var])
-        print mathml(expr)
-        return mathml(expr)
 
     def toPMML(self, filename):
-        """Write the trained model to PMML. Return PMML as string"""
-        # X = self.xTrain;
-        # Y = self.yTrain;
-        # gamma = self.gamma
-        # nugget = self.nugget
-        # k_lambda = self.k_lambda
+        """Write the trained model to PMML."""
 
         def trans_root(description=None, copyright=None, annotation=None):
             """Some basic information about the document """
@@ -174,6 +153,8 @@ class BayesianNetwork(nx.DiGraph):
 
         def trans_networkNodes(BayesianNetworkModel):
             """Create Node Levels"""
+            from expr_parse import get_xml_expr
+
             BayesianNetworkNodes = SubElement(BayesianNetworkModel, "BayesianNetworkNodes")
             for node in self.nodes_iter(data=True):
                 nodeDef = SubElement(BayesianNetworkNodes, "ContinuousNode", name=node[0])
@@ -194,27 +175,20 @@ class BayesianNetwork(nx.DiGraph):
                             val = float(node[1][varname])
                             value.text = toStr(val)
                     else:
-                        print '\t', varname, 'unknown_func'
-                        func_expr = self.expr_tree(node[0], varname)
+                        print '\t', varname, node[1]['exprs'][varname]
                         value = SubElement(vardef, 'Placeholder', dataType="N/A")
-                        # value.append(ET.fromstring(func_expr))
-                        value.text = toStr(node[1][varname])
-                #     SubElement(MiningSchema, "MiningField", name=it_name, usagetype="target")
+                        value.append(ET.fromstring(get_xml_expr(node[1]['exprs'][varname])))
             return BayesianNetworkModel
 
         cw = "DMG.org"
-        # xrow, yrow, xcol, ycol = trans_get_dimension(X, Y)
-        featureName, targetName = None, None #trans_name(xcol, ycol)
+
         # Start constructing the XML Tree
         PMML = trans_root(copyright=cw)
         PMML = trans_dataDictionary(PMML)
         BNM = trans_BN(PMML)
         BNM = trans_miningSchema(BNM)
         BNM = trans_networkNodes(BNM)
-        # GPM = trans_kernel(GPM, k_lambda, nugget, gamma, xcol, 'squared_exponential')
-        # GPData = trans_traininginstances(GPM, xrow, xcol + ycol)
-        # trans_instancefields(GPData, featureName, targetName)
-        # trans_inlinetable(GPData, featureName, targetName, X, Y)
+
         # Write the tree to file
         tree = ET.ElementTree(PMML)
         tree.write(filename, pretty_print=True, xml_declaration=True, encoding="utf-8")
