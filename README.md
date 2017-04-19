@@ -12,9 +12,7 @@ to allow complex node function definitions as combinations of other node values 
 
 
 ## Usage
-Return a Model object that contains all of the information about the 
-machine learning model. Models for each supported machine learning model
-are stored in the model directory.
+wip
 
 ## Examples
 The motivating example, a welding model taken from (**paper-ref**), can be found in the

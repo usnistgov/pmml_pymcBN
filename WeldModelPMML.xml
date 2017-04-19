@@ -73,14 +73,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A">
-                <FieldRef field="mu_l"/>
-              </Placeholder>
+              <FieldRef field="mu_l"/>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A">
-                <FieldRef field="sd_l"/>
-              </Placeholder>
+              <FieldRef field="sd_l"/>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -113,14 +109,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A">
-                <FieldRef field="mu_h"/>
-              </Placeholder>
+              <FieldRef field="mu_h"/>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A">
-                <FieldRef field="sd_h"/>
-              </Placeholder>
+              <FieldRef field="sd_h"/>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -153,14 +145,10 @@
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Mean>
-              <Placeholder dataType="N/A">
-                <FieldRef field="mu_e"/>
-              </Placeholder>
+              <FieldRef field="mu_e"/>
             </Mean>
             <Variance>
-              <Placeholder dataType="N/A">
-                <FieldRef field="sd_e"/>
-              </Placeholder>
+              <FieldRef field="sd_e"/>
             </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
@@ -203,43 +191,44 @@
       </ContinuousNode>
       <ContinuousNode name="V">
         <ContinuousDistribution>
-          <DETERMINISTIC_NODE_NEEDED>
-            <VALUE_OF_DETERMINISTIC_NODE>
-              <Placeholder dataType="N/A">
-                <Apply function="*">
-                  <FieldRef field="L"/>
-                  <Apply function="+">
-                    <Apply function="*">
-                      <FieldRef field="g"/>
-                      <FieldRef field="t"/>
-                    </Apply>
-                    <Apply function="*">
-                      <Constant dataType="double">0.500000000000000</Constant>
-                      <Apply function="+">
-                        <FieldRef field="mu_l"/>
-                        <Apply function="*">
-                          <Constant dataType="double">-1</Constant>
-                          <FieldRef field="g"/>
-                        </Apply>
-                      </Apply>
-                      <Apply function="+">
-                        <FieldRef field="t"/>
-                        <Apply function="*">
-                          <Constant dataType="double">-1</Constant>
-                          <FieldRef field="mu_e"/>
-                        </Apply>
-                      </Apply>
-                    </Apply>
-                    <Apply function="*">
-                      <Constant dataType="double">0.750000000000000</Constant>
-                      <FieldRef field="mu_h"/>
+          <NormalDistributionForBN>
+            <Variance>
+              <Constant dataType="double">0.0</Constant>
+            </Variance>
+            <Mean>
+              <Apply function="*">
+                <FieldRef field="L"/>
+                <Apply function="+">
+                  <Apply function="*">
+                    <FieldRef field="g"/>
+                    <FieldRef field="t"/>
+                  </Apply>
+                  <Apply function="*">
+                    <Constant dataType="double">0.500000000000000</Constant>
+                    <Apply function="+">
                       <FieldRef field="mu_l"/>
+                      <Apply function="*">
+                        <Constant dataType="double">-1</Constant>
+                        <FieldRef field="g"/>
+                      </Apply>
+                    </Apply>
+                    <Apply function="+">
+                      <FieldRef field="t"/>
+                      <Apply function="*">
+                        <Constant dataType="double">-1</Constant>
+                        <FieldRef field="mu_e"/>
+                      </Apply>
                     </Apply>
                   </Apply>
+                  <Apply function="*">
+                    <Constant dataType="double">0.750000000000000</Constant>
+                    <FieldRef field="mu_h"/>
+                    <FieldRef field="mu_l"/>
+                  </Apply>
                 </Apply>
-              </Placeholder>
-            </VALUE_OF_DETERMINISTIC_NODE>
-          </DETERMINISTIC_NODE_NEEDED>
+              </Apply>
+            </Mean>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="rho">
@@ -304,29 +293,30 @@
       </ContinuousNode>
       <ContinuousNode name="Energy">
         <ContinuousDistribution>
-          <DETERMINISTIC_NODE_NEEDED>
-            <VALUE_OF_DETERMINISTIC_NODE>
-              <Placeholder dataType="N/A">
-                <Apply function="*">
-                  <FieldRef field="V"/>
-                  <FieldRef field="rho"/>
-                  <Apply function="+">
-                    <FieldRef field="H"/>
-                    <Apply function="*">
-                      <FieldRef field="C_p"/>
-                      <Apply function="+">
-                        <FieldRef field="T_f"/>
-                        <Apply function="*">
-                          <Constant dataType="double">-1</Constant>
-                          <FieldRef field="T_i"/>
-                        </Apply>
+          <NormalDistributionForBN>
+            <Variance>
+              <Constant dataType="double">0.0</Constant>
+            </Variance>
+            <Mean>
+              <Apply function="*">
+                <FieldRef field="V"/>
+                <FieldRef field="rho"/>
+                <Apply function="+">
+                  <FieldRef field="H"/>
+                  <Apply function="*">
+                    <FieldRef field="C_p"/>
+                    <Apply function="+">
+                      <FieldRef field="T_f"/>
+                      <Apply function="*">
+                        <Constant dataType="double">-1</Constant>
+                        <FieldRef field="T_i"/>
                       </Apply>
                     </Apply>
                   </Apply>
                 </Apply>
-              </Placeholder>
-            </VALUE_OF_DETERMINISTIC_NODE>
-          </DETERMINISTIC_NODE_NEEDED>
+              </Apply>
+            </Mean>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
     </BayesianNetworkNodes>

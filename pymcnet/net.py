@@ -142,12 +142,14 @@ class BayesianNetwork(nx.DiGraph):
             dic = {
                 'Uniform': 'UniformDistributionForBN',
                 'Normal': 'NormalDistributionForBN',
-                'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
+                'Deterministic': 'NormalDistributionForBN',
+                # 'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
                 'lower': 'Lower',
                 'upper': 'Upper',
                 'mu': 'Mean',
                 'sd': 'Variance',
-                'var': 'VALUE_OF_DETERMINISTIC_NODE'
+                'var': 'Mean'
+                # 'var': 'VALUE_OF_DETERMINISTIC_NODE'
             }
             return dic[node_data]
 
@@ -162,9 +164,18 @@ class BayesianNetwork(nx.DiGraph):
                 nodeDist = SubElement(distDef, trans_map(node[1]['dist_type']))
                 toStr = "{0}".format
                 print node[0]
+                
+                ##### a hack to get deterministic nodes to work #####
+                if node[1]['dist_type'] == 'Deterministic':
+                    variance = SubElement(nodeDist, 'Variance')
+                    value = SubElement(variance, 'Constant', dataType="double")
+                    value.text = toStr(0.)
+                #####################################################
 
                 for varname in self.get_args(node[0]):
+
                     vardef = SubElement(nodeDist, trans_map(varname))
+
                     if isinstance(node[1][varname], (int, long, float, complex)):
                         print '\t', varname, toStr(float(node[1][varname]))
                         value = SubElement(vardef, 'Constant', dataType="double")
@@ -175,9 +186,10 @@ class BayesianNetwork(nx.DiGraph):
                             val = float(node[1][varname])
                             value.text = toStr(val)
                     else:
+
                         print '\t', varname, node[1]['exprs'][varname]
-                        value = SubElement(vardef, 'Placeholder', dataType="N/A")
-                        value.append(ET.fromstring(get_xml_expr(node[1]['exprs'][varname])))
+                        # value = SubElement(vardef, 'Placeholder', dataType="N/A")
+                        vardef.append(ET.fromstring(get_xml_expr(node[1]['exprs'][varname])))
             return BayesianNetworkModel
 
         cw = "DMG.org"
