@@ -83,8 +83,16 @@ def get_xml_expr(str_expr):
     :return: string containing PMML-style XML expression for node value
     """
 
-
     expr = sy.sympify(str_expr)
     return xml_tree(expr)
 
 
+def get_det_node_xml(node, varname):
+    """
+
+    :param node: a graph node (from a nodes_iter generator) containing an "exprs" attribute
+    :param varname: the parameter this expression represents in the node's distribution.
+    :return: xml string for this expression.
+    """
+
+    return get_xml_expr(node[1]['exprs'][varname])

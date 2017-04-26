@@ -155,16 +155,20 @@ class BayesianNetwork(nx.DiGraph):
 
         def trans_networkNodes(BayesianNetworkModel):
             """Create Node Levels"""
-            from expr_parse import get_xml_expr
+            from expr_parse import get_det_node_xml
+            from sympy import symbols
+
+            symbols(self.nodes())
 
             BayesianNetworkNodes = SubElement(BayesianNetworkModel, "BayesianNetworkNodes")
+
             for node in self.nodes_iter(data=True):
                 nodeDef = SubElement(BayesianNetworkNodes, "ContinuousNode", name=node[0])
                 distDef = SubElement(nodeDef, "ContinuousDistribution")
                 nodeDist = SubElement(distDef, trans_map(node[1]['dist_type']))
                 toStr = "{0}".format
                 print node[0]
-                
+
                 ##### a hack to get deterministic nodes to work #####
                 if node[1]['dist_type'] == 'Deterministic':
                     variance = SubElement(nodeDist, 'Variance')
@@ -189,7 +193,7 @@ class BayesianNetwork(nx.DiGraph):
 
                         print '\t', varname, node[1]['exprs'][varname]
                         # value = SubElement(vardef, 'Placeholder', dataType="N/A")
-                        vardef.append(ET.fromstring(get_xml_expr(node[1]['exprs'][varname])))
+                        vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
             return BayesianNetworkModel
 
         cw = "DMG.org"
@@ -207,26 +211,43 @@ class BayesianNetwork(nx.DiGraph):
         print 'Wrote PMML file to {}'.format(filename)
 
 
-def draw_net(D):
+def draw_net(D, pretty=False):
     try:
         import matplotlib.pyplot as plt
     except ImportError:
         print "need matplotlib to plot network..."
+
     try:
         from networkx.drawing.nx_pydot import graphviz_layout
         pos = graphviz_layout(D, prog='dot')
-        plt.figure()
+        plt.figure(figsize=(12,6))
+        nx.draw_networkx_nodes(D, pos,
+                               with_labels=True, node_size=1500, node_color='gray')
         nx.draw_networkx_nodes(D, pos,
                                nodelist=[n for n in D.nodes() if 'observed' in D.node[n]],
-                               with_labels=True, node_size=1000, node_color='yellow')
+                               with_labels=True, node_size=1500, node_color='#FFBF00')
         nx.draw_networkx_nodes(D, pos,
-                               nodelist=[n for n in D.nodes() if not 'observed' in D.node[n]],
-                               with_labels=True, node_size=1000, node_color='gray')
-        nx.draw_networkx_labels(D, pos)
+                               nodelist=[n for n in D.nodes() if D.node[n]["dist_type"]=='Deterministic'],
+                               with_labels=True, node_size=1500, node_color='#578FA4')
         nx.draw_networkx_edges(D, pos, arrows=True)
-        nx.draw_networkx_edge_labels(D, pos, rotate=False,
-                                     edge_labels={k:D.edge[k[0]][k[1]]['var'] for k in D.edges()})
+
+        if pretty:
+            try:
+                from sympy import Symbol, latex
+            except ImportError:
+                "need sympy for pretty variables"
+                raise
+            repls = ('lam', 'lambda'), ('sd', 'sigma')  # latexify some pymc3 vars
+            nx.draw_networkx_labels(D, pos, labels=dict((n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
+            nx.draw_networkx_edge_labels(D, pos, rotate=False,
+                                         edge_labels={(k[0],k[1]): r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, k[2]['var'])))) for k in D.edges_iter(data=True)})
+        else:
+            nx.draw_networkx_labels(D, pos)
+            nx.draw_networkx_edge_labels(D, pos, rotate=False,
+                                         edge_labels={k:D.edge[k[0]][k[1]]['var'] for k in D.edges()})
+        plt.gca().axis('off')
         plt.show()
+
     except:
         print 'You probably need to install Graphviz or have a working "dot" command in your PATH.'
         raise
