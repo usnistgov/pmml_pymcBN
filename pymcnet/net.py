@@ -1,10 +1,12 @@
 import numpy as np
 import pymc3 as pm
+from pymc3.math import *
 import networkx as nx
 from collections import OrderedDict
 from lxml import etree as ET
 from lxml.etree import Element,SubElement
 import getpass
+import re
 
 class BayesianNetwork(nx.DiGraph):
     """
@@ -64,13 +66,13 @@ class BayesianNetwork(nx.DiGraph):
             return Poisson_args
         elif dist_type in ['Deterministic', 'Potential']:
             return Det_args
-        elif dist_type == 'GaussianRW':
+        elif dist_type == 'GaussianRandomWalk':
             return GRW_args
         elif dist_type == 'StudentT':
             return StuT_args
 
         else:
-            print "Dists of type {} are not implemented".format(self.node[n]['dist'])
+            print "Dists of type {} are not implemented".format(self.node[n]['dist_type'])
             raise NotImplementedError
 
 
@@ -237,7 +239,7 @@ def draw_net(D, pretty=False):
             except ImportError:
                 "need sympy for pretty variables"
                 raise
-            repls = ('lam', 'lambda'), ('sd', 'sigma')  # latexify some pymc3 vars
+            repls = ('lam', 'lambda'), ('sd', 'sigma'), ('var', 'x')  # latexify some pymc3 vars
             nx.draw_networkx_labels(D, pos, labels=dict((n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
             nx.draw_networkx_edge_labels(D, pos, rotate=False,
                                          edge_labels={(k[0],k[1]): r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, k[2]['var'])))) for k in D.edges_iter(data=True)})
@@ -245,6 +247,7 @@ def draw_net(D, pretty=False):
             nx.draw_networkx_labels(D, pos)
             nx.draw_networkx_edge_labels(D, pos, rotate=False,
                                          edge_labels={k:D.edge[k[0]][k[1]]['var'] for k in D.edges()})
+        plt.legend(loc=0)
         plt.gca().axis('off')
         plt.show()
 
@@ -253,15 +256,16 @@ def draw_net(D, pretty=False):
         raise
 
 
-def instantiate_pm(D):
+def instantiate_pm(D, evaluate_exprs=False):
     """
     Instantiates a pymc3 model specified by a BN graph object. Must contain a node name with node attributes
-    {'dist', [dist_args], 'dist_type'}, where dist_args are distribution-specific keywords a la PyMC3.
+    {'exprs', 'dist_type'}, where exprs is a dict containing string expressions for the mathematical
+    definitions of the needed RV parameters of some pymc3 distribution, 'dist_type'.
 
     It's important to note the difference between root and child nodes in the current implementation:
-    root nodes can be defined statically, but inheriting/child nodes must have their dist_args defined as
+    root nodes can be defined statically, but inheriting/child nodes by design use one-time created
     argument-less functions (e.g. using mu=lambda: mu_x, sd=lambda: sd_x) so that they may be called at
-    instantiation.
+    instantiation. This will be (scarily) done with eval until another way can be found.
 
     Currently this system uses set logic to narrow down which keywords to allow for a given node, which
     is somewhat of a non-pythonic method (hard-to-read). The ability to infer keywords by the parent nodes
@@ -271,22 +275,55 @@ def instantiate_pm(D):
     :param D: a BN object inheriting from nx.DiGraph(). Contains node definitions
     :return: Instantiated PyMC3 model object
     """
+    def regex_repl(expression):
+        """
+        Since the internal node-refs are done using D.d(node), which needs to reference some node's
+        associated PyMC3 RandomVariable object, I can't figure out a good way to parse some kind of
+        instruction at instantiation, other than input strings and use eval. (D is BayesianNet)
+
+        This function uses regex to find node variables in an expression and replace them with the
+        RV reference in that node, gracefully ignoring subscript instances (ignores matches starting
+        with "_".
+
+        :param expression: expression string to be modified
+        :return: string containing uses of D.d("var") instead of "var".
+        """
+        r = re.compile(r"(?<!_)(" + '|'.join(D.nodes()) + r")")
+        eval_str = r.sub('D.d(\'\\1\')', expression)
+        # print eval_str
+        return eval_str
+
     for n in D.nodes():
         print n
         if not D.predecessors(n):  # check if the node is a root (implicit booleanness of empty set)
             varset = D.node[n].viewkeys() & (D.get_args(n) | D.Dist_args)
             args = {k: D.node[n][k] for k in varset}
             print 'root node; keys: ', args.keys()
-            D.node[n]['dist'] = D.node[n]['dist'](n, **args)
+            # D.node[n]['dist'] = D.node[n]['dist'](n, **args)
+            D.node[n]['dist'] = getattr(pm, D.node[n]['dist_type'])(n, **args)
         else:
+            # need to define value functions for each RV argument
+
             args = {k: D.node[n][k] for k in D.node[n].viewkeys() & D.Dist_args}
             #             print 'pre-args: ',args
             for var in list(D.get_args(n)):  # a set for each unique edge functional relationship
-                #                 parents = [i for i in D.predecessors(n)[::-1] if D.edge[i][n]['var']==var]
-                #                 print var, parents
-                ### ORDER OF NODE DEFINITION MUST be the ORDER OF ARGUMENTS
-                #                 args.update({var: D.node[n][var](*parents)})
+               ### DANGER ZONE ###
+                if evaluate_exprs:  # allow users to write custom lambda functions in nodes
+                    if var in D.node[n]['exprs'].keys():
+                        D.node[n][var] = lambda: eval(regex_repl(D.node[n]['exprs'][var]))
+               ###################
                 args.update({var: D.node[n][var]()})
             print 'child node; keys: ', args.keys()
-            D.node[n]['dist'] = D.node[n]['dist'](n, **args)
+            # D.node[n]['dist'] = D.node[n]['dist'](n, **args)
+            try:
+                D.node[n]['dist'] = getattr(pm, D.node[n]['dist_type'])(n, **args)
+            except AttributeError:
+                print "The distribution you want must not be in the standard PyMC3 list..."
+                print "going to try a time-series dist..."
+                try: D.node[n]['dist'] = getattr(pm.distributions.timeseries,
+                                                 D.node[n]['dist_type'])(n, **args)
+                except AttributeError:
+                    print "others are NOT supported at this time"
+                    raise
+
 
