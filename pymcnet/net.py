@@ -85,7 +85,7 @@ class BayesianNetwork(nx.DiGraph):
             py_version = "0.1"
 
             PMML_version = "4.3"
-            xmlns = "http://www.dmg.org/PMML-4_2"
+            xmlns = "http://www.dmg.org/PMML-4_3"
             PMML = root = Element('pmml', xmlns=xmlns, version=PMML_version)
 
             # pmml level
@@ -126,10 +126,10 @@ class BayesianNetwork(nx.DiGraph):
             MiningSchema = SubElement(BayesianNetworkModel, "MiningSchema")
 
             for node_name in active_nodes:
-                SubElement(MiningSchema, "MiningField", name=node_name, usagetype="active")
+                SubElement(MiningSchema, "MiningField", name=node_name, usageType="active")
 
             for it_name in target_nodes:
-                SubElement(MiningSchema, "MiningField", name=it_name, usagetype="target")
+                SubElement(MiningSchema, "MiningField", name=it_name, usageType="target")
 
             return BayesianNetworkModel
 
@@ -144,13 +144,13 @@ class BayesianNetwork(nx.DiGraph):
             dic = {
                 'Uniform': 'UniformDistributionForBN',
                 'Normal': 'NormalDistributionForBN',
-                'Deterministic': 'NormalDistributionForBN',
+                'Deterministic': 'DeterministicBN',
                 # 'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
                 'lower': 'Lower',
                 'upper': 'Upper',
                 'mu': 'Mean',
-                'sd': 'Variance',
-                'var': 'Mean'
+                'sd': 'StDev',
+                'var': 'StaticValue'
                 # 'var': 'VALUE_OF_DETERMINISTIC_NODE'
             }
             return dic[node_data]
@@ -172,10 +172,10 @@ class BayesianNetwork(nx.DiGraph):
                 print node[0]
 
                 ##### a hack to get deterministic nodes to work #####
-                if node[1]['dist_type'] == 'Deterministic':
-                    variance = SubElement(nodeDist, 'Variance')
-                    value = SubElement(variance, 'Constant', dataType="double")
-                    value.text = toStr(0.)
+                # if node[1]['dist_type'] == 'Deterministic':
+                #     variance = SubElement(nodeDist, 'Variance')
+                #     value = SubElement(variance, 'Constant', dataType="double")
+                #     value.text = toStr(0.)
                 #####################################################
 
                 for varname in self.get_args(node[0]):
@@ -185,12 +185,12 @@ class BayesianNetwork(nx.DiGraph):
                     if isinstance(node[1][varname], (int, long, float, complex)):
                         print '\t', varname, toStr(float(node[1][varname]))
                         value = SubElement(vardef, 'Constant', dataType="double")
-                        if varname == 'sd':  # need variance, not SD
-                            val = float(node[1][varname])**2
-                            value.text = toStr(val)
-                        else:
-                            val = float(node[1][varname])
-                            value.text = toStr(val)
+                        # if varname == 'sd':  # need variance, not SD
+                        #     val = float(node[1][varname])**2
+                        #     value.text = toStr(val)
+                        # else:
+                        val = float(node[1][varname])
+                        value.text = toStr(val)
                     else:
 
                         print '\t', varname, node[1]['exprs'][varname]
@@ -209,7 +209,7 @@ class BayesianNetwork(nx.DiGraph):
 
         # Write the tree to file
         tree = ET.ElementTree(PMML)
-        tree.write(filename, pretty_print=True, xml_declaration=True, encoding="utf-8")
+        tree.write(filename, pretty_print=True, xml_declaration=False, encoding="utf-8")
         print 'Wrote PMML file to {}'.format(filename)
 
 
