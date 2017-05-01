@@ -17,8 +17,8 @@ To get a feel for the way the package works, see the Examples linked below.
 ### Limitations
 Please be aware, the current implementation has limitations on compatibility with PMML, like 
 - Only supports ContinuousNode instances to/from PMML
-- Limited PyMC3 RV distributions (see [source code](pmml_pymcBN/pymcnet/net.py) for now)
-- Use of `eval()` (!) to compile theano graph containing RV references, via un-linked sympy expression (see [#1](/../../issues/3))
+- Limited PyMC3 RV distributions (see [source code](/pymcnet/net.py) for now)
+- Use of `eval()` (!) to compile theano graph containing RV references, via un-linked sympy expression (see [#1](/../../issues/1))
 
 ### Requirements
 pymcBN currently runs on the following: 
