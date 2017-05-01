@@ -12,7 +12,19 @@ to allow complex node function definitions as combinations of other node values 
 
 
 ## Usage
-wip
+To get a feel for the way the package works, see the Examples linked below. 
+
+### Limitations
+Please be aware, the current implementation has limitations on compatibility with PMML, like 
+- Only supports ContinuousNode instances to/from PMML
+- Limited PyMC3 RV distributions (see [source code](pmml_pymcBN/pymcnet/net.py) for now)
+- Use of `eval()` (!) to compile theano graph containing RV references, via un-linked sympy expression (see [#1](/../../issues/3))
+
+### Requirements
+pymcBN currently runs on the following: 
+- PyMC3 (for model instantiation and sampling)
+- NetworkX (for model creation and transferrability)
+- SymPy (for parsing mathematical expressions to/from PMML)
 
 ## Examples
 The motivating example, a welding model taken from (**paper-ref**), can be found in the
