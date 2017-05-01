@@ -7,7 +7,7 @@ except ImportError:
     'Sympy is needed to parse expression as xml for PMML'
 
 
-def xml_tree(node, pretty=False):
+def xml_tree(n, pretty=False):
     if pretty:
         delim = '\n'
         sep = '\t'
@@ -73,7 +73,7 @@ def xml_tree(node, pretty=False):
         s = print_node(node) + pprint_nodes(subtrees)
         return s
 
-    return tree(node)
+    return tree(n)
 
 
 def get_xml_expr(str_expr):

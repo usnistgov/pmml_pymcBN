@@ -1,6 +1,7 @@
 import numpy as np
 import lxml.etree as et
 import networkx as nx
+from expr_parse import parsed_math
 
 class BayesianNetworkParser():
     def __init__(self):
@@ -13,14 +14,8 @@ class BayesianNetworkParser():
         featureName, targetName = self._parse_name(BN)
         graph = self._parse_graph(BN)
         for observed in featureName:
-            graph.node[observed]['observed']="PLACEHOLDER"
-        # kernelName,k_lambda,nugget,gamma = self._parse_kernel(GPM)
-        # xTrain,yTrain = self._parse_training_values(GPM)
-        # xTrain = np.array(xTrain)
-        # yTrain = np.array(yTrain)
-        # return GaussianProcessModel(gamma=gamma,beta=0,nugget=nugget,k_lambda=k_lambda,
-        #     kernelName=kernelName,xTrain=xTrain,yTrain=yTrain)
-        # return {'bn': BN, 'feature': featureName, 'target': targetName}
+            graph.node[observed]['observed'] = []
+
         return graph
 
     def _parse_BN(self, filename):
@@ -123,17 +118,18 @@ class BayesianNetworkParser():
                     #################################
 
                     G.node[n][repl] = float(var_val)
+
                 else:
                     print '\t' + repl, [i.attrib['field'] for i in var_refs]
 
                     if not 'exprs' in G.node[n]:
                         G.node[n]['exprs'] = dict()
 
-                    G.node[n]['exprs'][repl] = "PLACEHOLDER"
+                    G.node[n]['exprs'][repl] = str(parsed_math(BNNVar, nsp=self.nsp))
                     ref_names = [i.attrib['field'] for i in var_refs]
                     # print ref_names
                     G.add_edges_from([(i, n) for i in ref_names], var=repl)
-                    pass
+                    # pass
 
         return G
 
