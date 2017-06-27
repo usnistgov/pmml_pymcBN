@@ -1,6 +1,6 @@
 <pmml version="4.3" xmlns="http://www.dmg.org/PMML-4_3">
   <header copyright="DMG.org" description="Bayesian Network Model"/>
-  <DataDictionary numberoffields="19">
+  <DataDictionary numberoffields="21">
     <DataField datatype="double" name="mu_l" optype="continuous"/>
     <DataField datatype="double" name="sd_l" optype="continuous"/>
     <DataField datatype="double" name="l" optype="continuous"/>
@@ -13,13 +13,15 @@
     <DataField datatype="double" name="L" optype="continuous"/>
     <DataField datatype="double" name="g" optype="continuous"/>
     <DataField datatype="double" name="t" optype="continuous"/>
+    <DataField datatype="double" name="sd_V" optype="continuous"/>
     <DataField datatype="double" name="V" optype="continuous"/>
     <DataField datatype="double" name="rho" optype="continuous"/>
     <DataField datatype="double" name="H" optype="continuous"/>
     <DataField datatype="double" name="C_p" optype="continuous"/>
     <DataField datatype="double" name="T_i" optype="continuous"/>
     <DataField datatype="double" name="T_f" optype="continuous"/>
-    <DataField datatype="double" name="Energy" optype="continuous"/>
+    <DataField datatype="double" name="sd_E" optype="continuous"/>
+    <DataField datatype="double" name="E" optype="continuous"/>
   </DataDictionary>
   <BayesianNetworkModel modelName="Bayesian Network Model" functionName="regression">
     <MiningSchema>
@@ -35,13 +37,15 @@
       <MiningField name="L" usageType="target"/>
       <MiningField name="g" usageType="target"/>
       <MiningField name="t" usageType="target"/>
+      <MiningField name="sd_V" usageType="target"/>
       <MiningField name="V" usageType="target"/>
       <MiningField name="rho" usageType="target"/>
       <MiningField name="H" usageType="target"/>
       <MiningField name="C_p" usageType="target"/>
       <MiningField name="T_i" usageType="target"/>
       <MiningField name="T_f" usageType="target"/>
-      <MiningField name="Energy" usageType="target"/>
+      <MiningField name="sd_E" usageType="target"/>
+      <MiningField name="E" usageType="target"/>
     </MiningSchema>
     <BayesianNetworkNodes>
       <ContinuousNode name="mu_l">
@@ -188,10 +192,22 @@
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
+      <ContinuousNode name="sd_V">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">1000.0</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">0.001</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
       <ContinuousNode name="V">
         <ContinuousDistribution>
-          <DeterministicBN>
-            <StaticValue>
+          <NormalDistributionForBN>
+            <Mean>
               <Apply function="*">
                 <FieldRef field="L"/>
                 <Apply function="+">
@@ -223,8 +239,11 @@
                   </Apply>
                 </Apply>
               </Apply>
-            </StaticValue>
-          </DeterministicBN>
+            </Mean>
+            <StDev>
+              <FieldRef field="sd_V"/>
+            </StDev>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="rho">
@@ -287,10 +306,22 @@
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
-      <ContinuousNode name="Energy">
+      <ContinuousNode name="sd_E">
         <ContinuousDistribution>
-          <DeterministicBN>
-            <StaticValue>
+          <UniformDistributionForBN>
+            <Upper>
+              <Constant dataType="double">1000.0</Constant>
+            </Upper>
+            <Lower>
+              <Constant dataType="double">0.001</Constant>
+            </Lower>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="E">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
               <Apply function="*">
                 <FieldRef field="V"/>
                 <FieldRef field="rho"/>
@@ -308,8 +339,11 @@
                   </Apply>
                 </Apply>
               </Apply>
-            </StaticValue>
-          </DeterministicBN>
+            </Mean>
+            <StDev>
+              <FieldRef field="sd_E"/>
+            </StDev>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
     </BayesianNetworkNodes>

@@ -46,6 +46,8 @@ class BayesianNetwork(nx.DiGraph):
         Det_args = {'var'}
         GRW_args = {'tau'}
         StuT_args = {'nu', 'lam'}
+        logN_args = {'mu', 'sd'}
+
         try:
             dist_type = self.node[n]['dist_type']
         except:
@@ -70,6 +72,8 @@ class BayesianNetwork(nx.DiGraph):
             return GRW_args
         elif dist_type == 'StudentT':
             return StuT_args
+        elif dist_type == 'Lognormal':
+            return logN_args
 
         else:
             print "Dists of type {} are not implemented".format(self.node[n]['dist_type'])
@@ -145,6 +149,7 @@ class BayesianNetwork(nx.DiGraph):
                 'Uniform': 'UniformDistributionForBN',
                 'Normal': 'NormalDistributionForBN',
                 'Deterministic': 'DeterministicBN',
+                'Lognormal': 'LognormalDistributionForBN',
                 # 'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
                 'lower': 'Lower',
                 'upper': 'Upper',

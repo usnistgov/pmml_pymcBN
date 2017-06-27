@@ -68,6 +68,13 @@ class BayesianNetworkParser():
                     'StDev': 'sd'
                 }
             },
+            'LognormalDistributionForBN':{
+                'dist_type': 'Lognormal',
+                'vars': {
+                    'Mean': 'mu',
+                    'StDev': 'sd'
+                }
+            },
             'DeterministicBN': {
                 'dist_type': 'Deterministic',
                 'vars': {
