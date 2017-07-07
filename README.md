@@ -36,5 +36,6 @@ example models in the BayesNet format.
 
 ## Future
 The next major steps for this project are:
-- Add the ability to read in PMML bayes net models to ready-to-sample PyMC3 networks.
+- Add the ability to read in PMML bayes net models to ready-to-sample PyMC3 networks. (Done!)
 - Add more distribution functionality, esp. to the PMML serialization.
+- Parsing discrete-node BNs. 
