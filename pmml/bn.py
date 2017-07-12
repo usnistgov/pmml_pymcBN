@@ -65,14 +65,14 @@ class BayesianNetworkParser():
                 'dist_type': 'Normal',
                 'vars': {
                     'Mean': 'mu',
-                    'StDev': 'sd'
+                    'Variance': 'sd'
                 }
             },
             'LognormalDistributionForBN':{
                 'dist_type': 'Lognormal',
                 'vars': {
                     'Mean': 'mu',
-                    'StDev': 'sd'
+                    'Variance': 'sd'
                 }
             },
             'DeterministicBN': {
@@ -123,16 +123,23 @@ class BayesianNetworkParser():
                     #     DETERMINISTIC_flag = True
                     #     continue
                     #################################
-
-                    G.node[n][repl] = float(var_val)
+                    if repl == 'sd':
+                        G.node[n][repl] = np.sqrt(float(var_val))
+                    else:
+                        G.node[n][repl] = float(var_val)
 
                 else:
                     print '\t' + repl, [i.attrib['field'] for i in var_refs]
 
                     if not 'exprs' in G.node[n]:
                         G.node[n]['exprs'] = dict()
+                    if repl == 'sd':
+                        func = lambda x: '({0})**(0.5)'.format(x)
+                        G.node[n]['exprs'][repl] = str(parsed_math(BNNVar, nsp=self.nsp,
+                                                                   func=func))
 
-                    G.node[n]['exprs'][repl] = str(parsed_math(BNNVar, nsp=self.nsp))
+                    else:
+                        G.node[n]['exprs'][repl] = str(parsed_math(BNNVar, nsp=self.nsp))
                     ref_names = [i.attrib['field'] for i in var_refs]
                     # print ref_names
                     G.add_edges_from([(i, n) for i in ref_names], var=repl)

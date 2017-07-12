@@ -43,14 +43,14 @@ def trans_root(description,copyright,Annotation):
 
     PMML_version = "4.3"
     xmlns = "http://www.dmg.org/PMML-4_2"
-    PMML = root = Element('pmml',xmlns=xmlns, version=PMML_version)
+    PMML = root = Element('PMML',xmlns=xmlns, version=PMML_version)
 
     # pmml level
     if copyright is None:
         copyright = "Copyright (c) 2015 {0}".format(username)
     if description is None:
         description = "Bayesian Network Model"
-    Header = SubElement(PMML, "header", copyright=copyright, description=description)
+    Header = SubElement(PMML, "Header", copyright=copyright, description=description)
 
     if Annotation is not None:
         ET.Element(Header,"Annotation").text=Annotation

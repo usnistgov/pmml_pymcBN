@@ -46,8 +46,11 @@ def xml_tree(n, pretty=False):
             'Pow': 'pow',
             'log': 'ln'
         }
-        return dic[sy_func]
-
+        try:
+            return dic[sy_func]
+        except KeyError:
+            print sy_func
+            raise
     def print_node(node):
         """
         Returns the "node" class name string representation.
@@ -87,12 +90,16 @@ def get_xml_expr(str_expr):
     return xml_tree(expr)
 
 
-def get_det_node_xml(node, varname):
+def get_det_node_xml(node, varname, func=None):
     """
 
     :param node: a graph node (from a nodes_iter generator) containing an "exprs" attribute
     :param varname: the parameter this expression represents in the node's distribution.
     :return: xml string for this expression.
     """
-
-    return get_xml_expr(node[1]['exprs'][varname])
+    str_expr = node[1]['exprs'][varname]
+    if func is None:
+        return get_xml_expr(str_expr)
+    else:
+        # print str_expr, '\t-->\t', func(str_expr)
+        return get_xml_expr(func(str_expr))

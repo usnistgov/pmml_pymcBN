@@ -2,12 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82c4a096-a7b3-4de7-b900-91f06c044c02" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pymcnet/oset.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NX_pymc3_BayesNets.ipynb" afterPath="$PROJECT_DIR$/NX_pymc3_BayesNets.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMML_Weld_example.ipynb" afterPath="$PROJECT_DIR$/PMML_Weld_example.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeldModelPMML.xml" afterPath="$PROJECT_DIR$/WeldModelPMML.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pmml/bn.py" afterPath="$PROJECT_DIR$/pmml/bn.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pmml/expr_parse.py" afterPath="$PROJECT_DIR$/pmml/expr_parse.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/expr_parse.py" afterPath="$PROJECT_DIR$/pymcnet/expr_parse.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/net.py" afterPath="$PROJECT_DIR$/pymcnet/net.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/trans.py" afterPath="$PROJECT_DIR$/pymcnet/trans.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -36,8 +41,8 @@
           <file leaf-file-name="expr_parse.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/pmml/expr_parse.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="34">
-                  <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="35" />
+                <state relative-caret-position="697">
+                  <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -48,11 +53,21 @@
           <file leaf-file-name="bn.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/pmml/bn.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="510">
-                  <caret line="30" column="17" lean-forward="true" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+                <state relative-caret-position="748">
+                  <caret line="137" column="47" lean-forward="false" selection-start-line="137" selection-start-column="47" selection-end-line="137" selection-end-column="47" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="trans.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/pymcnet/trans.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="170">
+                  <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -61,14 +76,34 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="net.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="net.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="4845">
-                  <caret line="285" column="32" lean-forward="true" selection-start-line="285" selection-start-column="32" selection-end-line="285" selection-end-column="32" />
+                <state relative-caret-position="574">
+                  <caret line="204" column="66" lean-forward="false" selection-start-line="204" selection-start-column="35" selection-end-line="204" selection-end-column="66" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="expr_parse.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="937">
+                  <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="oset.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/pymcnet/oset.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="119">
+                  <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -97,6 +132,11 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>header</find>
+    </findStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -112,15 +152,16 @@
         <option value="$PROJECT_DIR$/tests/baseball_trajectory.py" />
         <option value="$PROJECT_DIR$/tests/lin_regression.py" />
         <option value="$PROJECT_DIR$/pmml/gpr.py" />
-        <option value="$PROJECT_DIR$/pymcnet/trans.py" />
         <option value="$PROJECT_DIR$/tests/__init__.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/tests/welding.py" />
         <option value="$PROJECT_DIR$/tests/pmml_parse.py" />
+        <option value="$PROJECT_DIR$/pymcnet/trans.py" />
         <option value="$PROJECT_DIR$/pymcnet/expr_parse.py" />
+        <option value="$PROJECT_DIR$/pymcnet/net.py" />
         <option value="$PROJECT_DIR$/pmml/expr_parse.py" />
         <option value="$PROJECT_DIR$/pmml/bn.py" />
-        <option value="$PROJECT_DIR$/pymcnet/net.py" />
+        <option value="$PROJECT_DIR$/pymcnet/oset.py" />
       </list>
     </option>
   </component>
@@ -152,7 +193,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -165,9 +206,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pmml_pymcBN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parsers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pymcnet" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pmml_pymcBN" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="parsers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pmml" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -517,6 +586,14 @@
       <option name="presentableId" value="Default" />
       <updated>1491247951824</updated>
     </task>
+    <task id="LOCAL-00001" summary="New non-deterministic test for welding BN (compatibility w/ PMML as-is).">
+      <created>1498571794456</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1498571794456</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -552,6 +629,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="New non-deterministic test for welding BN (compatibility w/ PMML as-is)." />
+    <option name="LAST_COMMIT_MESSAGE" value="New non-deterministic test for welding BN (compatibility w/ PMML as-is)." />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <default-breakpoints>
@@ -566,17 +647,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="0">
-            <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pmml/expr_parse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -601,12 +671,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1853">
           <caret line="115" column="12" lean-forward="true" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
-          <folding>
-            <element signature="e#1#26#0" expanded="false" />
-            <element signature="e#3265#3292#0" expanded="false" />
-            <marker date="1493319770685" expanded="false" signature="464:581" ph="..." />
-            <marker date="1493319770685" expanded="true" signature="622:2856" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -624,7 +688,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -670,12 +733,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2023">
           <caret line="125" column="26" lean-forward="false" selection-start-line="125" selection-start-column="26" selection-end-line="125" selection-end-column="26" />
-          <folding>
-            <element signature="e#1#26#0" expanded="false" />
-            <element signature="e#3265#3292#0" expanded="false" />
-            <marker date="1493319770685" expanded="false" signature="464:581" ph="..." />
-            <marker date="1493319770685" expanded="true" signature="622:2856" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -749,12 +806,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2278">
           <caret line="140" column="58" lean-forward="false" selection-start-line="140" selection-start-column="58" selection-end-line="140" selection-end-column="58" />
-          <folding>
-            <element signature="e#1#26#0" expanded="false" />
-            <element signature="e#3265#3292#0" expanded="false" />
-            <marker date="1493319770685" expanded="false" signature="464:581" ph="..." />
-            <marker date="1493319770685" expanded="true" signature="622:2856" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -852,20 +903,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pmml/gpr.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pymcnet/trans.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="879">
-          <caret line="67" column="5" lean-forward="false" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Continuum/Anaconda2/Lib/site-packages/mpl_toolkits/mplot3d/axes3d.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -929,33 +966,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="71" column="38" lean-forward="true" selection-start-line="71" selection-start-column="38" selection-end-line="71" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pmml/expr_parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="35" lean-forward="false" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/welding.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1853">
           <caret line="115" column="12" lean-forward="false" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
-          <folding>
-            <element signature="e#1#26#0" expanded="false" />
-            <element signature="e#3265#3292#0" expanded="false" />
-            <marker date="1493319770685" expanded="false" signature="464:581" ph="..." />
-            <marker date="1493319770685" expanded="true" signature="622:2856" ph="..." />
-          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/pmml_parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -976,31 +997,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/pmml_parse.py">
+    <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        <state relative-caret-position="937">
+          <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pmml/gpr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-525">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pymcnet/trans.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="26" lean-forward="false" selection-start-line="14" selection-start-column="26" selection-end-line="14" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4845">
-          <caret line="285" column="32" lean-forward="true" selection-start-line="285" selection-start-column="32" selection-end-line="285" selection-end-column="32" />
+        <state relative-caret-position="574">
+          <caret line="204" column="66" lean-forward="false" selection-start-line="204" selection-start-column="35" selection-end-line="204" selection-end-column="66" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pmml/expr_parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="697">
+          <caret line="62" column="24" lean-forward="true" selection-start-line="62" selection-start-column="24" selection-end-line="62" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/pmml/bn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="17" lean-forward="true" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        <state relative-caret-position="748">
+          <caret line="137" column="47" lean-forward="false" selection-start-line="137" selection-start-column="47" selection-end-line="137" selection-end-column="47" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pymcnet/oset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="27" lean-forward="false" selection-start-line="7" selection-start-column="27" selection-end-line="7" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
