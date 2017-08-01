@@ -54,9 +54,11 @@ def pmml_to_srepr(xml_expr, nsp=''):
     return res
 
 
-def parsed_math(xml_expr, nsp=''):
-    return parse_expr(pmml_to_srepr(xml_expr, nsp=nsp))
-
+def parsed_math(xml_expr, nsp='', func=None):
+    if func is None:
+        return parse_expr(pmml_to_srepr(xml_expr, nsp=nsp))
+    else:
+        return parse_expr(func(pmml_to_srepr(xml_expr, nsp=nsp)))
 
 if __name__=='__main__':
     import sympy as sy

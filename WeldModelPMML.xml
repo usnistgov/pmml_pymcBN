@@ -1,25 +1,27 @@
-<pmml version="4.3" xmlns="http://www.dmg.org/PMML-4_3">
-  <header copyright="DMG.org" description="Bayesian Network Model"/>
-  <DataDictionary numberoffields="19">
-    <DataField datatype="double" name="mu_l" optype="continuous"/>
-    <DataField datatype="double" name="sd_l" optype="continuous"/>
-    <DataField datatype="double" name="l" optype="continuous"/>
-    <DataField datatype="double" name="mu_h" optype="continuous"/>
-    <DataField datatype="double" name="sd_h" optype="continuous"/>
-    <DataField datatype="double" name="h" optype="continuous"/>
-    <DataField datatype="double" name="mu_e" optype="continuous"/>
-    <DataField datatype="double" name="sd_e" optype="continuous"/>
-    <DataField datatype="double" name="e" optype="continuous"/>
-    <DataField datatype="double" name="L" optype="continuous"/>
-    <DataField datatype="double" name="g" optype="continuous"/>
-    <DataField datatype="double" name="t" optype="continuous"/>
-    <DataField datatype="double" name="V" optype="continuous"/>
-    <DataField datatype="double" name="rho" optype="continuous"/>
-    <DataField datatype="double" name="H" optype="continuous"/>
-    <DataField datatype="double" name="C_p" optype="continuous"/>
-    <DataField datatype="double" name="T_i" optype="continuous"/>
-    <DataField datatype="double" name="T_f" optype="continuous"/>
-    <DataField datatype="double" name="Energy" optype="continuous"/>
+<PMML version="4.3" xmlns="http://www.dmg.org/PMML-4_3">
+  <Header copyright="DMG.org" description="Bayesian Network Model"/>
+  <DataDictionary numberOfFields="21">
+    <DataField dataType="double" name="mu_l" optype="continuous"/>
+    <DataField dataType="double" name="sd_l" optype="continuous"/>
+    <DataField dataType="double" name="l" optype="continuous"/>
+    <DataField dataType="double" name="mu_h" optype="continuous"/>
+    <DataField dataType="double" name="sd_h" optype="continuous"/>
+    <DataField dataType="double" name="h" optype="continuous"/>
+    <DataField dataType="double" name="mu_e" optype="continuous"/>
+    <DataField dataType="double" name="sd_e" optype="continuous"/>
+    <DataField dataType="double" name="e" optype="continuous"/>
+    <DataField dataType="double" name="L" optype="continuous"/>
+    <DataField dataType="double" name="g" optype="continuous"/>
+    <DataField dataType="double" name="t" optype="continuous"/>
+    <DataField dataType="double" name="sd_V" optype="continuous"/>
+    <DataField dataType="double" name="V" optype="continuous"/>
+    <DataField dataType="double" name="rho" optype="continuous"/>
+    <DataField dataType="double" name="H" optype="continuous"/>
+    <DataField dataType="double" name="C_p" optype="continuous"/>
+    <DataField dataType="double" name="T_i" optype="continuous"/>
+    <DataField dataType="double" name="T_f" optype="continuous"/>
+    <DataField dataType="double" name="sd_E" optype="continuous"/>
+    <DataField dataType="double" name="E" optype="continuous"/>
   </DataDictionary>
   <BayesianNetworkModel modelName="Bayesian Network Model" functionName="regression">
     <MiningSchema>
@@ -35,36 +37,38 @@
       <MiningField name="L" usageType="target"/>
       <MiningField name="g" usageType="target"/>
       <MiningField name="t" usageType="target"/>
+      <MiningField name="sd_V" usageType="target"/>
       <MiningField name="V" usageType="target"/>
       <MiningField name="rho" usageType="target"/>
       <MiningField name="H" usageType="target"/>
       <MiningField name="C_p" usageType="target"/>
       <MiningField name="T_i" usageType="target"/>
       <MiningField name="T_f" usageType="target"/>
-      <MiningField name="Energy" usageType="target"/>
+      <MiningField name="sd_E" usageType="target"/>
+      <MiningField name="E" usageType="target"/>
     </MiningSchema>
     <BayesianNetworkNodes>
       <ContinuousNode name="mu_l">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.0086</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.0083</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.0086</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="sd_l">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.0007</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.0002</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.0007</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -74,33 +78,36 @@
             <Mean>
               <FieldRef field="mu_l"/>
             </Mean>
-            <StDev>
-              <FieldRef field="sd_l"/>
-            </StDev>
+            <Variance>
+              <Apply function="pow">
+                <FieldRef field="sd_l"/>
+                <Constant dataType="double">2.00000000000000</Constant>
+              </Apply>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="mu_h">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.0028</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.0025</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.0028</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="sd_h">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.0006</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.0003</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.0006</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -110,33 +117,36 @@
             <Mean>
               <FieldRef field="mu_h"/>
             </Mean>
-            <StDev>
-              <FieldRef field="sd_h"/>
-            </StDev>
+            <Variance>
+              <Apply function="pow">
+                <FieldRef field="sd_h"/>
+                <Constant dataType="double">2.00000000000000</Constant>
+              </Apply>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="mu_e">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.013</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.01</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.013</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="sd_e">
         <ContinuousDistribution>
           <UniformDistributionForBN>
-            <Upper>
-              <Constant dataType="double">0.0013</Constant>
-            </Upper>
             <Lower>
               <Constant dataType="double">0.0008</Constant>
             </Lower>
+            <Upper>
+              <Constant dataType="double">0.0013</Constant>
+            </Upper>
           </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -146,9 +156,12 @@
             <Mean>
               <FieldRef field="mu_e"/>
             </Mean>
-            <StDev>
-              <FieldRef field="sd_e"/>
-            </StDev>
+            <Variance>
+              <Apply function="pow">
+                <FieldRef field="sd_e"/>
+                <Constant dataType="double">2.00000000000000</Constant>
+              </Apply>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -158,9 +171,9 @@
             <Mean>
               <Constant dataType="double">0.5</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">0.01</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">0.0001</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -170,9 +183,9 @@
             <Mean>
               <Constant dataType="double">0.002</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">0.0001</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">1e-08</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -182,16 +195,28 @@
             <Mean>
               <Constant dataType="double">0.015</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">0.0005</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">2.5e-07</Constant>
+            </Variance>
           </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="sd_V">
+        <ContinuousDistribution>
+          <UniformDistributionForBN>
+            <Lower>
+              <Constant dataType="double">0.001</Constant>
+            </Lower>
+            <Upper>
+              <Constant dataType="double">1000.0</Constant>
+            </Upper>
+          </UniformDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="V">
         <ContinuousDistribution>
-          <DeterministicBN>
-            <StaticValue>
+          <NormalDistributionForBN>
+            <Mean>
               <Apply function="*">
                 <FieldRef field="L"/>
                 <Apply function="+">
@@ -223,8 +248,14 @@
                   </Apply>
                 </Apply>
               </Apply>
-            </StaticValue>
-          </DeterministicBN>
+            </Mean>
+            <Variance>
+              <Apply function="pow">
+                <FieldRef field="sd_V"/>
+                <Constant dataType="double">2.00000000000000</Constant>
+              </Apply>
+            </Variance>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
       <ContinuousNode name="rho">
@@ -233,9 +264,9 @@
             <Mean>
               <Constant dataType="double">8238.0</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">10.0</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">100.0</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -245,9 +276,9 @@
             <Mean>
               <Constant dataType="double">270000.0</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">3000.0</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">9000000.0</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -257,9 +288,9 @@
             <Mean>
               <Constant dataType="double">500.0</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">5.0</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">25.0</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -269,9 +300,9 @@
             <Mean>
               <Constant dataType="double">303.0</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">0.3</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">0.09</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -281,16 +312,28 @@
             <Mean>
               <Constant dataType="double">1628.0</Constant>
             </Mean>
-            <StDev>
-              <Constant dataType="double">10.0</Constant>
-            </StDev>
+            <Variance>
+              <Constant dataType="double">100.0</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
-      <ContinuousNode name="Energy">
+      <ContinuousNode name="sd_E">
         <ContinuousDistribution>
-          <DeterministicBN>
-            <StaticValue>
+          <UniformDistributionForBN>
+            <Lower>
+              <Constant dataType="double">0.001</Constant>
+            </Lower>
+            <Upper>
+              <Constant dataType="double">1000.0</Constant>
+            </Upper>
+          </UniformDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="E">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
               <Apply function="*">
                 <FieldRef field="V"/>
                 <FieldRef field="rho"/>
@@ -308,10 +351,16 @@
                   </Apply>
                 </Apply>
               </Apply>
-            </StaticValue>
-          </DeterministicBN>
+            </Mean>
+            <Variance>
+              <Apply function="pow">
+                <FieldRef field="sd_E"/>
+                <Constant dataType="double">2.00000000000000</Constant>
+              </Apply>
+            </Variance>
+          </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
     </BayesianNetworkNodes>
   </BayesianNetworkModel>
-</pmml>
+</PMML>

@@ -5,6 +5,7 @@ import networkx as nx
 from collections import OrderedDict
 from lxml import etree as ET
 from lxml.etree import Element,SubElement
+from oset import OrderedSet
 import getpass
 import re
 
@@ -41,11 +42,13 @@ class BayesianNetwork(nx.DiGraph):
         HalfNorm_args = {'sd'}
         HalfCauchy_args = {'beta'}
         Expon_args = {'lam'}
-        Unif_args = {'lower', 'upper'}
+        Unif_args = OrderedSet(['lower', 'upper'])
         Poisson_args = {'mu'}
         Det_args = {'var'}
         GRW_args = {'tau'}
         StuT_args = {'nu', 'lam'}
+        logN_args = {'mu', 'sd'}
+
         try:
             dist_type = self.node[n]['dist_type']
         except:
@@ -70,6 +73,8 @@ class BayesianNetwork(nx.DiGraph):
             return GRW_args
         elif dist_type == 'StudentT':
             return StuT_args
+        elif dist_type == 'Lognormal':
+            return logN_args
 
         else:
             print "Dists of type {} are not implemented".format(self.node[n]['dist_type'])
@@ -86,14 +91,14 @@ class BayesianNetwork(nx.DiGraph):
 
             PMML_version = "4.3"
             xmlns = "http://www.dmg.org/PMML-4_3"
-            PMML = root = Element('pmml', xmlns=xmlns, version=PMML_version)
+            PMML = root = Element('PMML', xmlns=xmlns, version=PMML_version)
 
             # pmml level
             if copyright is None:
                 copyright = "Copyright (c) 2015 {0}".format(username)
             if description is None:
                 description = "Bayesian Network Model"
-            Header = SubElement(PMML, "header", copyright=copyright, description=description)
+            Header = SubElement(PMML, "Header", copyright=copyright, description=description)
 
             if annotation is not None:
                 ET.Element(Header, "Annotation").text = annotation
@@ -106,11 +111,11 @@ class BayesianNetwork(nx.DiGraph):
             """
             toStr = "{0}".format
             node_list = self.nodes()
-            DataDictionary = SubElement(PMML, "DataDictionary", numberoffields=toStr(len(node_list)))
+            DataDictionary = SubElement(PMML, "DataDictionary", numberOfFields=toStr(len(node_list)))
 
             # only continuous supported currently
             for node_name in node_list:
-                SubElement(DataDictionary, "DataField", name=node_name,optype="continuous", datatype="double")
+                SubElement(DataDictionary, "DataField", name=node_name,optype="continuous", dataType="double")
 
             # for it_name in targetName:
             #     SubElement(DataDictionary, "datafield", name=it_name,optype="continuous", datatype="double" )
@@ -145,11 +150,12 @@ class BayesianNetwork(nx.DiGraph):
                 'Uniform': 'UniformDistributionForBN',
                 'Normal': 'NormalDistributionForBN',
                 'Deterministic': 'DeterministicBN',
+                'Lognormal': 'LognormalDistributionForBN',
                 # 'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
                 'lower': 'Lower',
                 'upper': 'Upper',
                 'mu': 'Mean',
-                'sd': 'StDev',
+                'sd': 'Variance',  # Uh-oh
                 'var': 'StaticValue'
                 # 'var': 'VALUE_OF_DETERMINISTIC_NODE'
             }
@@ -183,19 +189,28 @@ class BayesianNetwork(nx.DiGraph):
                     vardef = SubElement(nodeDist, trans_map(varname))
 
                     if isinstance(node[1][varname], (int, long, float, complex)):
-                        print '\t', varname, toStr(float(node[1][varname]))
-                        value = SubElement(vardef, 'Constant', dataType="double")
-                        # if varname == 'sd':  # need variance, not SD
-                        #     val = float(node[1][varname])**2
-                        #     value.text = toStr(val)
-                        # else:
-                        val = float(node[1][varname])
-                        value.text = toStr(val)
-                    else:
 
-                        print '\t', varname, node[1]['exprs'][varname]
+                        value = SubElement(vardef, 'Constant', dataType="double")
+                        if varname == 'sd':  # need variance, not SD
+                            val = float(node[1][varname])**2
+                            value.text = toStr(val)
+                            print '\t', trans_map(varname), toStr(val)
+                        else:
+                            val = float(node[1][varname])
+                            value.text = toStr(val)
+                            print '\t', trans_map(varname), toStr(val)
+
+                    else:
+                        if varname == 'sd':  # need variance, not SD
+                            func = lambda x: '({0})**2.'.format(x)
+                            vardef.append(ET.fromstring(get_det_node_xml(node, varname,
+                                                                         func=func)))
+                            print '\t', trans_map(varname), func(node[1]['exprs'][varname])
+                        else:
+                            vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
+                            print '\t', trans_map(varname), node[1]['exprs'][varname]
                         # value = SubElement(vardef, 'Placeholder', dataType="N/A")
-                        vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
+                        # vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
             return BayesianNetworkModel
 
         cw = "DMG.org"
