@@ -240,31 +240,52 @@ def draw_net(D, pretty=False):
         from networkx.drawing.nx_pydot import graphviz_layout
         pos = graphviz_layout(D, prog='dot')
         plt.figure(figsize=(12,6))
-        nx.draw_networkx_nodes(D, pos,
-                               with_labels=True, node_size=1500, node_color='gray')
-        nx.draw_networkx_nodes(D, pos,
-                               nodelist=[n for n in D.nodes() if 'observed' in D.node[n]],
-                               with_labels=True, node_size=1500, node_color='#FFBF00')
-        nx.draw_networkx_nodes(D, pos,
-                               nodelist=[n for n in D.nodes() if D.node[n]["dist_type"] == 'Deterministic'],
-                               with_labels=True, node_size=1500, node_color='#578FA4')
+
+        node_colors = ['#d3d3d3' if ('observed' in D.node[n]) else 'white' for n in D.nodes()]
+        node_shapes = ['s' if (D.node[n]['dist_type'] == 'Deterministic') else 'o' for n in D.nodes()]
+        node_edges = [{
+            'Deterministic': '#1e90ff',
+            'Normal': '#f89406',
+            'Uniform': '#46a546'
+        }.get(D.node[n]['dist_type'], 'k') for n in D.nodes()]
+        for _n, _s, _c, _e, _p in zip(D.nodes(), node_shapes, node_colors, node_edges, [{i: pos[i]} for i in D.nodes()]):
+            draw_nodes = nx.draw_networkx_nodes(D, _p,
+                                                nodelist=[_n],
+                                                with_labels=True,
+                                                node_size=1500,
+                                                node_color=_c,
+                                                node_shape=_s)
+            draw_nodes.set_edgecolor(_e)
+
         nx.draw_networkx_edges(D, pos, arrows=True)
 
         if pretty:
             try:
                 from sympy import Symbol, latex
+                from matplotlib import rc_context
+                # rc("font", family="serif", size=12)
+                # rc("text", usetex=True)
+                with rc_context(rc={'text.usetex': True,
+                                    'font.family': 'serif',
+                                    'font.size': 16}):
+                    repls = ('lam', 'lambda'), ('sd', 'sigma'), ('var', 'x')  # latexify some pymc3 vars
+                    nx.draw_networkx_labels(D, pos, labels=dict(
+                        (n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
+                    nx.draw_networkx_edge_labels(D, pos, rotate=False,
+                                                 label_pos=.7,
+                                                 edge_labels={(k[0], k[1]): r'${}$'.format(latex(
+                                                     Symbol(reduce(lambda a, kv: a.replace(*kv), repls, k[2]['var']))))
+                                                              for k in D.edges_iter(data=True)})
             except ImportError:
-                "need sympy for pretty variables"
+                "need sympy and LaTeX for pretty variables"
                 raise
-            repls = ('lam', 'lambda'), ('sd', 'sigma'), ('var', 'x')  # latexify some pymc3 vars
-            nx.draw_networkx_labels(D, pos, labels=dict((n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
-            nx.draw_networkx_edge_labels(D, pos, rotate=False,
-                                         edge_labels={(k[0],k[1]): r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, k[2]['var'])))) for k in D.edges_iter(data=True)})
+
         else:
             nx.draw_networkx_labels(D, pos)
             nx.draw_networkx_edge_labels(D, pos, rotate=False,
+                                         label_pos=.7,
                                          edge_labels={k:D.edge[k[0]][k[1]]['var'] for k in D.edges()})
-        plt.legend(loc=0)
+        # plt.legend(loc=0)
         plt.gca().axis('off')
         plt.show()
 

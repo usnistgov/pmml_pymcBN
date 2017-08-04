@@ -2,22 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82c4a096-a7b3-4de7-b900-91f06c044c02" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/weld_full/daft_net_png.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/pmml/gpr.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/pmml_pymcBN.iml" afterPath="$PROJECT_DIR$/.idea/pmml_pymcBN.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/weld_full/weld_net_img.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/NX_pymc3_BayesNets.ipynb" afterPath="$PROJECT_DIR$/NX_pymc3_BayesNets.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PMML_Weld_example.ipynb" afterPath="$PROJECT_DIR$/PMML_Weld_example.ipynb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WeldModelPMML.xml" afterPath="$PROJECT_DIR$/WeldModelPMML.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pmml/bn.py" afterPath="$PROJECT_DIR$/pmml/bn.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pmml/expr_parse.py" afterPath="$PROJECT_DIR$/pmml/expr_parse.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/expr_parse.py" afterPath="$PROJECT_DIR$/pymcnet/expr_parse.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/net.py" afterPath="$PROJECT_DIR$/pymcnet/net.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/oset.py" afterPath="$PROJECT_DIR$/pymcnet/oset.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pymcnet/trans.py" afterPath="$PROJECT_DIR$/pymcnet/trans.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/pmml_parse.py" afterPath="$PROJECT_DIR$/tests/pmml_parse.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/welding.py" afterPath="$PROJECT_DIR$/tests/welding.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/weld_full/daft_net_png.py" afterPath="$PROJECT_DIR$/tests/weld_full/daft_net_png.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -34,7 +25,7 @@
     <SUITE FILE_PATH="coverage/parsers$lin_regression.coverage" NAME="lin_regression Coverage Results" MODIFIED="1492177270263" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/parsers$baseball_trajectory.coverage" NAME="baseball_trajectory Coverage Results" MODIFIED="1492187864985" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/parsers$coal_disaster.coverage" NAME="coal_disaster Coverage Results" MODIFIED="1492188489012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/pmml_pymcBN$daft_net_png.coverage" NAME="daft_net_png Coverage Results" MODIFIED="1501701179590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/weld_full" />
+    <SUITE FILE_PATH="coverage/pmml_pymcBN$daft_net_png.coverage" NAME="daft_net_png Coverage Results" MODIFIED="1501864235032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/weld_full" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -70,8 +61,8 @@
           <file leaf-file-name="bn.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/pmml/bn.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="758">
-                  <caret line="137" column="39" lean-forward="true" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="39" />
+                <state relative-caret-position="2144">
+                  <caret line="155" column="15" lean-forward="false" selection-start-line="155" selection-start-column="15" selection-end-line="155" selection-end-column="15" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -89,27 +80,11 @@
               </provider>
             </entry>
           </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="net.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="200">
-                  <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="welding.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="welding.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/tests/welding.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="54">
-                  <caret line="112" column="33" lean-forward="true" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+                <state relative-caret-position="1968">
+                  <caret line="123" column="22" lean-forward="false" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
                   <folding>
                     <element signature="e#1#26#0" expanded="true" />
                   </folding>
@@ -117,12 +92,18 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="expr_parse.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="net.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="419">
-                  <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
-                  <folding />
+                <state relative-caret-position="155">
+                  <caret line="268" column="51" lean-forward="false" selection-start-line="268" selection-start-column="51" selection-end-line="268" selection-end-column="51" />
+                  <folding>
+                    <element signature="e#0#18#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -141,7 +122,7 @@
             <entry file="file://$PROJECT_DIR$/tests/weld_full/daft_net_png.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
-                  <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
@@ -197,11 +178,11 @@
         <option value="$PROJECT_DIR$/pymcnet/expr_parse.py" />
         <option value="$PROJECT_DIR$/pmml/expr_parse.py" />
         <option value="$PROJECT_DIR$/pymcnet/oset.py" />
-        <option value="$PROJECT_DIR$/tests/weld_full/daft_net_png.py" />
         <option value="$PROJECT_DIR$/pmml/gpr.py" />
-        <option value="$PROJECT_DIR$/pymcnet/net.py" />
         <option value="$PROJECT_DIR$/pmml/bn.py" />
         <option value="$PROJECT_DIR$/tests/welding.py" />
+        <option value="$PROJECT_DIR$/tests/weld_full/daft_net_png.py" />
+        <option value="$PROJECT_DIR$/pymcnet/net.py" />
       </list>
     </option>
   </component>
@@ -211,11 +192,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="4">
-    <option name="x" value="1" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="8" />
     <option name="y" value="24" />
-    <option name="width" value="1667" />
-    <option name="height" value="1011" />
+    <option name="width" value="1902" />
+    <option name="height" value="975" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -259,6 +240,12 @@
             </path>
             <path>
               <item name="pmml_pymcBN" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pmml_pymcBN" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="weld_full" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pmml_pymcBN" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
@@ -295,7 +282,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.welding">
+  <component name="RunManager" selected="Python.daft_net_png">
     <configuration default="true" type="PyBehaveRunConfigurationType" factoryName="Behave">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -632,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1498571794456</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Deterministic node hack is back due to sampling problems">
+      <created>1501856564436</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1501856564436</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -645,17 +639,18 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="24" width="1667" height="1011" extended-state="4" />
+    <frame x="8" y="24" width="1902" height="975" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18018018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328341" sideWeight="0.50421053" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31526548" sideWeight="0.49578947" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.328341" sideWeight="0.49578947" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964602" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15789473" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27876106" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -663,6 +658,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug Logs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="108" y="124" width="1702" height="775" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Execute Anonymous" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -679,7 +675,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="New non-deterministic test for welding BN (compatibility w/ PMML as-is)." />
-    <option name="LAST_COMMIT_MESSAGE" value="New non-deterministic test for welding BN (compatibility w/ PMML as-is)." />
+    <MESSAGE value="Deterministic node hack is back due to sampling problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Deterministic node hack is back due to sampling problems" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -702,23 +699,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tests/welding.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="115" column="12" lean-forward="true" selection-start-line="115" selection-start-column="12" selection-end-line="115" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/pmml_parse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -937,11 +917,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/weld_full/weld_net_img.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -974,10 +949,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/weld_full/daft_net_png.py">
+    <entry file="file://$PROJECT_DIR$/tests/weld_full/weldBN.PNG">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/weld_full/paper.PNG">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/weld_full/weld_net_img.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="25" lean-forward="false" selection-start-line="0" selection-start-column="25" selection-end-line="0" selection-end-column="25" />
+        <state relative-caret-position="455">
+          <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
           <folding />
         </state>
       </provider>
@@ -990,40 +980,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymcnet/expr_parse.py">
+    <entry file="file://$PROJECT_DIR$/tests/weld_full/daft_net_png.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="103" column="51" lean-forward="false" selection-start-line="103" selection-start-column="51" selection-end-line="103" selection-end-column="51" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
+    <entry file="file://$PROJECT_DIR$/tests/welding.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="192" column="0" lean-forward="false" selection-start-line="192" selection-start-column="0" selection-end-line="192" selection-end-column="0" />
+        <state relative-caret-position="1968">
+          <caret line="123" column="22" lean-forward="false" selection-start-line="123" selection-start-column="22" selection-end-line="123" selection-end-column="22" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#1#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pmml/bn.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="758">
-          <caret line="137" column="39" lean-forward="true" selection-start-line="137" selection-start-column="39" selection-end-line="137" selection-end-column="39" />
+        <state relative-caret-position="2144">
+          <caret line="155" column="15" lean-forward="false" selection-start-line="155" selection-start-column="15" selection-end-line="155" selection-end-column="15" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tests/welding.py">
+    <entry file="file://$PROJECT_DIR$/pymcnet/net.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="112" column="33" lean-forward="true" selection-start-line="112" selection-start-column="33" selection-end-line="112" selection-end-column="33" />
+        <state relative-caret-position="155">
+          <caret line="268" column="51" lean-forward="false" selection-start-line="268" selection-start-column="51" selection-end-line="268" selection-end-column="51" />
           <folding>
-            <element signature="e#1#26#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>

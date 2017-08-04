@@ -57,15 +57,15 @@
       <ContinuousNode name="l">
         <ContinuousDistribution>
           <NormalDistributionForBN>
+            <Mean>
+              <FieldRef field="mu_l"/>
+            </Mean>
             <Variance>
               <Apply function="pow">
                 <FieldRef field="sd_l"/>
                 <Constant dataType="double">2.00000000000000</Constant>
               </Apply>
             </Variance>
-            <Mean>
-              <FieldRef field="mu_l"/>
-            </Mean>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -96,15 +96,15 @@
       <ContinuousNode name="h">
         <ContinuousDistribution>
           <NormalDistributionForBN>
+            <Mean>
+              <FieldRef field="mu_h"/>
+            </Mean>
             <Variance>
               <Apply function="pow">
                 <FieldRef field="sd_h"/>
                 <Constant dataType="double">2.00000000000000</Constant>
               </Apply>
             </Variance>
-            <Mean>
-              <FieldRef field="mu_h"/>
-            </Mean>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -135,15 +135,15 @@
       <ContinuousNode name="g">
         <ContinuousDistribution>
           <NormalDistributionForBN>
+            <Mean>
+              <FieldRef field="mu_g"/>
+            </Mean>
             <Variance>
               <Apply function="pow">
                 <FieldRef field="sd_g"/>
                 <Constant dataType="double">2.00000000000000</Constant>
               </Apply>
             </Variance>
-            <Mean>
-              <FieldRef field="mu_g"/>
-            </Mean>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
@@ -176,12 +176,12 @@
       <ContinuousNode name="rho">
         <ContinuousDistribution>
           <NormalDistributionForBN>
-            <Variance>
-              <Constant dataType="double">100.0</Constant>
-            </Variance>
             <Mean>
               <Constant dataType="double">8250.0</Constant>
             </Mean>
+            <Variance>
+              <Constant dataType="double">100.0</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>

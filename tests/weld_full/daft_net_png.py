@@ -7,6 +7,7 @@ import daft
 # Colors.
 p_color = {"ec": "#46a546"}
 s_color = {"ec": "#f89406"}
+d_color = {"ec": "#1e90ff"}
 
 pgm = daft.PGM([3.5, 4], origin=[0, .5], grid_unit=2.5)
 
@@ -32,18 +33,18 @@ pgm.add_node(daft.Node("mu_g", r"$\mu_g$", 3, 3, plot_params=p_color))
 pgm.add_edge("mu_g", "g")
 pgm.add_edge("sd_g", "g")
 
-pgm.add_node(daft.Node("V", "$V$", 2, 2, plot_params=s_color))
-pgm.add_node(daft.Node("sd_V", r"$\sigma_V$", 1, 2, plot_params=p_color))
-pgm.add_edge("sd_V", "V")
+pgm.add_node(daft.Node("V", "$V$", 2, 2, plot_params=d_color, shape="rectangle"))
+# pgm.add_node(daft.Node("sd_V", r"$\sigma_V$", 1, 2, plot_params=p_color))
+# pgm.add_edge("sd_V", "V")
 pgm.add_edge("mu_l", "V")
 pgm.add_edge("mu_h", "V")
 pgm.add_edge("mu_g", "V")
 
 
-pgm.add_node(daft.Node("E", "$E$", 2, 1, plot_params=s_color))
-pgm.add_node(daft.Node("sd_E", r"$\sigma_E$", 1, 1, plot_params=p_color))
+pgm.add_node(daft.Node("E", "$E$", 2, 1, plot_params=d_color, shape="rectangle"))
+# pgm.add_node(daft.Node("sd_E", r"$\sigma_E$", 1, 1, plot_params=p_color))
 pgm.add_node(daft.Node("rho", r"$\rho$", 2.5, 1.5, plot_params=s_color))
-pgm.add_edge("sd_E", "E")
+# pgm.add_edge("sd_E", "E")
 pgm.add_edge("rho", "E")
 pgm.add_edge("V", "E")
 
