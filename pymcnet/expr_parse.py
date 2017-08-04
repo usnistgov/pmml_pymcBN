@@ -1,5 +1,5 @@
 # MODIFY THIS TO MAKE TREE STUFF
-from __future__ import division
+
 
 try:
     import sympy as sy
@@ -49,7 +49,7 @@ def xml_tree(n, pretty=False):
         try:
             return dic[sy_func]
         except KeyError:
-            print sy_func
+            print(sy_func)
             raise
     def print_node(node):
         """

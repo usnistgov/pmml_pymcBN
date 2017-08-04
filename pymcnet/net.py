@@ -5,9 +5,10 @@ import networkx as nx
 from collections import OrderedDict
 from lxml import etree as ET
 from lxml.etree import Element,SubElement
-from oset import OrderedSet
+from .oset import OrderedSet
 import getpass
 import re
+from functools import reduce
 
 class BayesianNetwork(nx.DiGraph):
     """
@@ -26,8 +27,8 @@ class BayesianNetwork(nx.DiGraph):
         try:
             return self.node[n]['dist']
         except:
-            print 'Node either doesn\'t exist or has not been\
-            assigned a distribution'
+            print('Node either doesn\'t exist or has not been\
+            assigned a distribution')
             raise NotImplementedError
 
     Dist_args = {'observed', 'shape', 'testval'}  # general RV keywords
@@ -52,7 +53,7 @@ class BayesianNetwork(nx.DiGraph):
         try:
             dist_type = self.node[n]['dist_type']
         except:
-            print """Node either doesn't exist or has not been assigned a distribution"""
+            print("""Node either doesn't exist or has not been assigned a distribution""")
             raise NotImplementedError
         # pm.StudentT()
         if dist_type == 'Normal':
@@ -77,7 +78,7 @@ class BayesianNetwork(nx.DiGraph):
             return logN_args
 
         else:
-            print "Dists of type {} are not implemented".format(self.node[n]['dist_type'])
+            print("Dists of type {} are not implemented".format(self.node[n]['dist_type']))
             raise NotImplementedError
 
 
@@ -149,21 +150,22 @@ class BayesianNetwork(nx.DiGraph):
             dic = {
                 'Uniform': 'UniformDistributionForBN',
                 'Normal': 'NormalDistributionForBN',
-                'Deterministic': 'DeterministicBN',
+                # 'Deterministic': 'DeterministicBN',
+                'Deterministic': 'NormalDistributionForBN',  # hack
                 'Lognormal': 'LognormalDistributionForBN',
-                # 'Deterministic': 'DETERMINISTIC_NODE_NEEDED',
                 'lower': 'Lower',
                 'upper': 'Upper',
                 'mu': 'Mean',
                 'sd': 'Variance',  # Uh-oh
-                'var': 'StaticValue'
+                # 'var': 'StaticValue'
+                'var': 'Mean'  # hack
                 # 'var': 'VALUE_OF_DETERMINISTIC_NODE'
             }
             return dic[node_data]
 
         def trans_networkNodes(BayesianNetworkModel):
             """Create Node Levels"""
-            from expr_parse import get_det_node_xml
+            from .expr_parse import get_det_node_xml
             from sympy import symbols
 
             symbols(self.nodes())
@@ -175,40 +177,40 @@ class BayesianNetwork(nx.DiGraph):
                 distDef = SubElement(nodeDef, "ContinuousDistribution")
                 nodeDist = SubElement(distDef, trans_map(node[1]['dist_type']))
                 toStr = "{0}".format
-                print node[0]
+                print(node[0])
 
                 ##### a hack to get deterministic nodes to work #####
-                # if node[1]['dist_type'] == 'Deterministic':
-                #     variance = SubElement(nodeDist, 'Variance')
-                #     value = SubElement(variance, 'Constant', dataType="double")
-                #     value.text = toStr(0.)
+                if node[1]['dist_type'] == 'Deterministic':
+                    variance = SubElement(nodeDist, 'Variance')
+                    value = SubElement(variance, 'Constant', dataType="double")
+                    value.text = toStr(0.)
                 #####################################################
 
                 for varname in self.get_args(node[0]):
 
                     vardef = SubElement(nodeDist, trans_map(varname))
 
-                    if isinstance(node[1][varname], (int, long, float, complex)):
+                    if isinstance(node[1][varname], (int, float, complex)):
 
                         value = SubElement(vardef, 'Constant', dataType="double")
                         if varname == 'sd':  # need variance, not SD
                             val = float(node[1][varname])**2
                             value.text = toStr(val)
-                            print '\t', trans_map(varname), toStr(val)
+                            print('\t', trans_map(varname), toStr(val))
                         else:
                             val = float(node[1][varname])
                             value.text = toStr(val)
-                            print '\t', trans_map(varname), toStr(val)
+                            print('\t', trans_map(varname), toStr(val))
 
                     else:
                         if varname == 'sd':  # need variance, not SD
                             func = lambda x: '({0})**2.'.format(x)
                             vardef.append(ET.fromstring(get_det_node_xml(node, varname,
                                                                          func=func)))
-                            print '\t', trans_map(varname), func(node[1]['exprs'][varname])
+                            print('\t', trans_map(varname), func(node[1]['exprs'][varname]))
                         else:
                             vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
-                            print '\t', trans_map(varname), node[1]['exprs'][varname]
+                            print('\t', trans_map(varname), node[1]['exprs'][varname])
                         # value = SubElement(vardef, 'Placeholder', dataType="N/A")
                         # vardef.append(ET.fromstring(get_det_node_xml(node, varname)))
             return BayesianNetworkModel
@@ -225,14 +227,14 @@ class BayesianNetwork(nx.DiGraph):
         # Write the tree to file
         tree = ET.ElementTree(PMML)
         tree.write(filename, pretty_print=True, xml_declaration=False, encoding="utf-8")
-        print 'Wrote PMML file to {}'.format(filename)
+        print('Wrote PMML file to {}'.format(filename))
 
 
 def draw_net(D, pretty=False):
     try:
         import matplotlib.pyplot as plt
     except ImportError:
-        print "need matplotlib to plot network..."
+        print("need matplotlib to plot network...")
 
     try:
         from networkx.drawing.nx_pydot import graphviz_layout
@@ -244,7 +246,7 @@ def draw_net(D, pretty=False):
                                nodelist=[n for n in D.nodes() if 'observed' in D.node[n]],
                                with_labels=True, node_size=1500, node_color='#FFBF00')
         nx.draw_networkx_nodes(D, pos,
-                               nodelist=[n for n in D.nodes() if D.node[n]["dist_type"]=='Deterministic'],
+                               nodelist=[n for n in D.nodes() if D.node[n]["dist_type"] == 'Deterministic'],
                                with_labels=True, node_size=1500, node_color='#578FA4')
         nx.draw_networkx_edges(D, pos, arrows=True)
 
@@ -267,7 +269,7 @@ def draw_net(D, pretty=False):
         plt.show()
 
     except:
-        print 'You probably need to install Graphviz or have a working "dot" command in your PATH.'
+        print('You probably need to install Graphviz or have a working "dot" command in your PATH.')
         raise
 
 
@@ -309,36 +311,36 @@ def instantiate_pm(D, evaluate_exprs=False):
         return eval_str
 
     for n in D.nodes():
-        print n
+        print(n)
         if not D.predecessors(n):  # check if the node is a root (implicit booleanness of empty set)
-            varset = D.node[n].viewkeys() & (D.get_args(n) | D.Dist_args)
+            varset = D.node[n].keys() & (D.get_args(n) | D.Dist_args)
             args = {k: D.node[n][k] for k in varset}
-            print 'root node; keys: ', args.keys()
+            print('root node; keys: ', list(args.keys()))
             # D.node[n]['dist'] = D.node[n]['dist'](n, **args)
             D.node[n]['dist'] = getattr(pm, D.node[n]['dist_type'])(n, **args)
         else:
             # need to define value functions for each RV argument
 
-            args = {k: D.node[n][k] for k in D.node[n].viewkeys() & D.Dist_args}
+            args = {k: D.node[n][k] for k in D.node[n].keys() & D.Dist_args}
             #             print 'pre-args: ',args
             for var in list(D.get_args(n)):  # a set for each unique edge functional relationship
                ### DANGER ZONE ###
                 if evaluate_exprs:  # allow users to write custom lambda functions in nodes
-                    if var in D.node[n]['exprs'].keys():
+                    if var in list(D.node[n]['exprs'].keys()):
                         D.node[n][var] = lambda: eval(regex_repl(D.node[n]['exprs'][var]))
                ###################
                 args.update({var: D.node[n][var]()})
-            print 'child node; keys: ', args.keys()
+            print('child node; keys: ', list(args.keys()))
             # D.node[n]['dist'] = D.node[n]['dist'](n, **args)
             try:
                 D.node[n]['dist'] = getattr(pm, D.node[n]['dist_type'])(n, **args)
             except AttributeError:
-                print "The distribution you want must not be in the standard PyMC3 list..."
-                print "going to try a time-series dist..."
+                print("The distribution you want must not be in the standard PyMC3 list...")
+                print("going to try a time-series dist...")
                 try: D.node[n]['dist'] = getattr(pm.distributions.timeseries,
                                                  D.node[n]['dist_type'])(n, **args)
                 except AttributeError:
-                    print "others are NOT supported at this time"
+                    print("others are NOT supported at this time")
                     raise
 
 

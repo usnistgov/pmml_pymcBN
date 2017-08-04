@@ -34,7 +34,7 @@ def toPMML( filename):
     # Write the tree to file
     tree = ET.ElementTree(PMML)
     tree.write(filename, pretty_print=True, xml_declaration=True, encoding="utf-8")
-    print 'Wrote PMML file to %s' % filename
+    print('Wrote PMML file to %s' % filename)
 
 def trans_root(description,copyright,Annotation):
     """Some basic information about the document """

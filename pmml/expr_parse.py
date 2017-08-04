@@ -1,4 +1,4 @@
-from __future__ import division
+
 import lxml.etree as et
 try:
     from sympy.parsing.sympy_parser import parse_expr
@@ -66,8 +66,8 @@ if __name__=='__main__':
 
     expr = sy.sympify('rho*V*(H + C_p*(T_f-T_i))')
     # expr = sy.sympify('L*((0.75)*mu_l*mu_h + g*t + (mu_l-g)*(t-mu_e)*0.5)')
-    print 'The result should look like this: \n\n\t', sy.srepr(expr)
-    print '\nwhich parses to this: \n\t', parse_expr(sy.srepr(expr)), '\n----'
+    print('The result should look like this: \n\n\t', sy.srepr(expr))
+    print('\nwhich parses to this: \n\t', parse_expr(sy.srepr(expr)), '\n----')
     # sy.parsing.sympy_parser.parse_expr(sy.srepr(expr))
 
     xml_expr = """
@@ -95,5 +95,5 @@ if __name__=='__main__':
 
     res = pmml_to_srepr(xml_expr)
     # print res
-    print "instead we get this: \n\n\t", res
-    print '\nwhich parses to this:\n\t ', parse_expr(res)
+    print("instead we get this: \n\n\t", res)
+    print('\nwhich parses to this:\n\t ', parse_expr(res))

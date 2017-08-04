@@ -1,7 +1,7 @@
 import numpy as np
 import lxml.etree as et
 import networkx as nx
-from expr_parse import parsed_math
+from .expr_parse import parsed_math
 
 class BayesianNetworkParser():
     def __init__(self):
@@ -99,37 +99,27 @@ class BayesianNetworkParser():
 
             dist_elem = elem[0][0]
             dist_name = dist_elem.tag.replace(self.nsp,'')
-            print n
+            print(n)
             G.node[n]['dist_type'] = dist_dic[dist_name]['dist_type']
             node_refs = elem.findall(".//"+self.nsp+'FieldRef')
             # print [i.attrib['field'] for i in node_refs]
 
-            for varname, repl in dist_dic[dist_name]['vars'].items():
+            for varname, repl in list(dist_dic[dist_name]['vars'].items()):
 
                 BNNVar = self._findElementByName(dist_elem, varname)
-
-                # if DETERMINISTIC_flag:
-                #     G.node[n]['exprs']['var'] = et.tostring(BNNVar)
-                #     continue
 
                 var_refs = BNNVar.findall(".//"+self.nsp+'FieldRef')  # no fieldref => root node
                 if not var_refs+node_refs:
                     var_val = BNNVar.findtext(self.nsp+'Constant')
-                    print '\t' + repl, var_val
+                    print('\t' + repl, var_val)
 
-                    #######Hack for Det Nodes########
-                    # if float(var_val)==0.:
-                    #     G.node[n]['dist_type'] = 'Deterministic'
-                    #     DETERMINISTIC_flag = True
-                    #     continue
-                    #################################
                     if repl == 'sd':
                         G.node[n][repl] = np.sqrt(float(var_val))
                     else:
                         G.node[n][repl] = float(var_val)
 
                 else:
-                    print '\t' + repl, [i.attrib['field'] for i in var_refs]
+                    print('\t' + repl, [i.attrib['field'] for i in var_refs])
 
                     if not 'exprs' in G.node[n]:
                         G.node[n]['exprs'] = dict()
@@ -144,6 +134,16 @@ class BayesianNetworkParser():
                     # print ref_names
                     G.add_edges_from([(i, n) for i in ref_names], var=repl)
                     # pass
+
+            ###########################
+            # Deterministic Node Hack #
+            if (G.node[n]['dist_type'] == 'Normal') & ('exprs' in G.node[n].keys()):
+                if G.node[n]['exprs']['sd'] == '0':
+                    print(f'Deterministic Node {n} detected as N(mu, 0); replacing...')
+                    G.node[n]['dist_type'] = 'Deterministic'
+                    G.node[n]['exprs'] = {'var': G.node[n]['exprs']['mu']}
+            ###########################
+
 
         return G
 
