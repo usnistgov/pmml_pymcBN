@@ -268,7 +268,7 @@ def draw_net(D, pretty=False):
                 with rc_context(rc={'text.usetex': True,
                                     'font.family': 'serif',
                                     'font.size': 16}):
-                    repls = ('lam', 'lambda'), ('sd', 'sigma'), ('var', 'x')  # latexify some pymc3 vars
+                    repls = ('lam', 'lambda'), ('sd', 'sigma'), ('var', 'x'), ('eps', 'epsilon')  # latexify some pymc3 vars
                     nx.draw_networkx_labels(D, pos, labels=dict(
                         (n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
                     nx.draw_networkx_edge_labels(D, pos, rotate=False,

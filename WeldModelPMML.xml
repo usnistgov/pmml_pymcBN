@@ -1,6 +1,6 @@
 <PMML version="4.3" xmlns="http://www.dmg.org/PMML-4_3">
   <Header copyright="DMG.org" description="Bayesian Network Model"/>
-  <DataDictionary numberOfFields="12">
+  <DataDictionary numberOfFields="13">
     <DataField dataType="double" name="mu_l" optype="continuous"/>
     <DataField dataType="double" name="sd_l" optype="continuous"/>
     <DataField dataType="double" name="l" optype="continuous"/>
@@ -12,13 +12,15 @@
     <DataField dataType="double" name="g" optype="continuous"/>
     <DataField dataType="double" name="V" optype="continuous"/>
     <DataField dataType="double" name="rho" optype="continuous"/>
-    <DataField dataType="double" name="E" optype="continuous"/>
+    <DataField dataType="double" name="E_d" optype="continuous"/>
+    <DataField dataType="double" name="E_L" optype="continuous"/>
   </DataDictionary>
   <BayesianNetworkModel modelName="Bayesian Network Model" functionName="regression">
     <MiningSchema>
       <MiningField name="l" usageType="active"/>
       <MiningField name="h" usageType="active"/>
       <MiningField name="g" usageType="active"/>
+      <MiningField name="E_L" usageType="active"/>
       <MiningField name="mu_l" usageType="target"/>
       <MiningField name="sd_l" usageType="target"/>
       <MiningField name="mu_h" usageType="target"/>
@@ -27,7 +29,7 @@
       <MiningField name="sd_g" usageType="target"/>
       <MiningField name="V" usageType="target"/>
       <MiningField name="rho" usageType="target"/>
-      <MiningField name="E" usageType="target"/>
+      <MiningField name="E_d" usageType="target"/>
     </MiningSchema>
     <BayesianNetworkNodes>
       <ContinuousNode name="mu_l">
@@ -185,7 +187,7 @@
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
-      <ContinuousNode name="E">
+      <ContinuousNode name="E_d">
         <ContinuousDistribution>
           <NormalDistributionForBN>
             <Variance>
@@ -193,11 +195,23 @@
             </Variance>
             <Mean>
               <Apply function="*">
-                <Constant dataType="double">650270.000000000</Constant>
+                <Constant dataType="double">920.000000000000</Constant>
                 <FieldRef field="V"/>
                 <FieldRef field="rho"/>
               </Apply>
             </Mean>
+          </NormalDistributionForBN>
+        </ContinuousDistribution>
+      </ContinuousNode>
+      <ContinuousNode name="E_L">
+        <ContinuousDistribution>
+          <NormalDistributionForBN>
+            <Mean>
+              <FieldRef field="E_d"/>
+            </Mean>
+            <Variance>
+              <Constant dataType="double">1.00000000000000</Constant>
+            </Variance>
           </NormalDistributionForBN>
         </ContinuousDistribution>
       </ContinuousNode>
