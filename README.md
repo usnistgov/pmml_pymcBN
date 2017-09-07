@@ -1,4 +1,4 @@
-# BayesNetMC
+# PyMCNet
 
 ## Why?
 
