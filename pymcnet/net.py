@@ -9,6 +9,8 @@ from .oset import OrderedSet
 import getpass
 import re
 from functools import reduce
+from sympy.parsing.sympy_parser import parse_expr
+
 
 class BayesianNetwork(nx.DiGraph):
     """
@@ -343,12 +345,19 @@ def instantiate_pm(D, evaluate_exprs=False):
             # need to define value functions for each RV argument
 
             args = {k: D.node[n][k] for k in D.node[n].keys() & D.Dist_args}
-            #             print 'pre-args: ',args
+            # print('pre-args: ',args)
             for var in list(D.get_args(n)):  # a set for each unique edge functional relationship
                ### DANGER ZONE ###
                 if evaluate_exprs:  # allow users to write custom lambda functions in nodes
+                    # r = re.compile(r"(?<!_)(" + '|'.join(D.nodes()) + r")")
                     if var in list(D.node[n]['exprs'].keys()):
+                        # expr_to_parse = D.node[n]['exprs'][var]  # translate this string
                         D.node[n][var] = lambda: eval(regex_repl(D.node[n]['exprs'][var]))
+
+                        # input_vars = r.findall(expr_to_parse)  # using these input variable nodes
+                        # print(expr_to_parse, input_vars)
+                        # D.node[n][var] = lambda: parse_expr(expr_to_parse,
+                        #                                     {in_var: D.d(in_var) for in_var in input_vars})
                ###################
                 args.update({var: D.node[n][var]()})
             print('child node; keys: ', list(args.keys()))
@@ -356,7 +365,7 @@ def instantiate_pm(D, evaluate_exprs=False):
             try:
                 D.node[n]['dist'] = getattr(pm, D.node[n]['dist_type'])(n, **args)
             except AttributeError:
-                print("The distribution you want must not be in the standard PyMC3 list...")
+                print("The distribution you want might not be in the standard PyMC3 list...")
                 print("going to try a time-series dist...")
                 try: D.node[n]['dist'] = getattr(pm.distributions.timeseries,
                                                  D.node[n]['dist_type'])(n, **args)
