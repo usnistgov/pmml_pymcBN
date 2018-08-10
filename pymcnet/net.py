@@ -21,7 +21,11 @@ class BayesianNetwork(nx.DiGraph):
     """
     node_dict_factory = OrderedDict
     adjlist_dict_factory = OrderedDict
-
+    
+    def __init__(self, **digraph_kws):
+        super().__init__(self, **digraph_kws)
+        self.Dist_args = {'observed', 'shape', 'testval'}  # general RV keywords
+        
     def d(self, n):
         """
         get node distribution by name
@@ -33,7 +37,7 @@ class BayesianNetwork(nx.DiGraph):
             assigned a distribution')
             raise NotImplementedError
 
-    Dist_args = {'observed', 'shape', 'testval'}  # general RV keywords
+    
 
     def get_args(self, n):
         """
@@ -170,11 +174,11 @@ class BayesianNetwork(nx.DiGraph):
             from .expr_parse import get_det_node_xml
             from sympy import symbols
 
-            symbols(self.nodes())
+            symbols(list(self.nodes()))
 
             BayesianNetworkNodes = SubElement(BayesianNetworkModel, "BayesianNetworkNodes")
 
-            for node in self.nodes_iter(data=True):
+            for node in self.nodes.data():
                 nodeDef = SubElement(BayesianNetworkNodes, "ContinuousNode", name=node[0])
                 distDef = SubElement(nodeDef, "ContinuousDistribution")
                 nodeDist = SubElement(distDef, trans_map(node[1]['dist_type']))
@@ -259,7 +263,7 @@ def draw_net(D, pretty=False):
                                                 node_shape=_s)
             draw_nodes.set_edgecolor(_e)
 
-        nx.draw_networkx_edges(D, pos, arrows=True)
+        nx.draw_networkx_edges(D, pos, arrows=True, node_size=1500)
 
         if pretty:
             try:
@@ -274,10 +278,10 @@ def draw_net(D, pretty=False):
                     nx.draw_networkx_labels(D, pos, labels=dict(
                         (n, r'${}$'.format(latex(Symbol(reduce(lambda a, kv: a.replace(*kv), repls, n))))) for n in D.nodes()))
                     nx.draw_networkx_edge_labels(D, pos, rotate=False,
-                                                 label_pos=.7,
+                                                 label_pos=.6,
                                                  edge_labels={(k[0], k[1]): r'${}$'.format(latex(
                                                      Symbol(reduce(lambda a, kv: a.replace(*kv), repls, k[2]['var']))))
-                                                              for k in D.edges_iter(data=True)})
+                                                              for k in D.edges.data()})
             except ImportError:
                 "need sympy and LaTeX for pretty variables"
                 raise
@@ -285,7 +289,7 @@ def draw_net(D, pretty=False):
         else:
             nx.draw_networkx_labels(D, pos)
             nx.draw_networkx_edge_labels(D, pos, rotate=False,
-                                         label_pos=.7,
+                                         label_pos=.6,
                                          edge_labels={k:D.edge[k[0]][k[1]]['var'] for k in D.edges()})
         # plt.legend(loc=0)
         plt.gca().axis('off')
@@ -335,7 +339,7 @@ def instantiate_pm(D, evaluate_exprs=False):
 
     for n in D.nodes():
         print(n)
-        if not D.predecessors(n):  # check if the node is a root (implicit booleanness of empty set)
+        if not list(D.predecessors(n)):  # check if the node is a root (implicit booleanness of empty set)
             varset = D.node[n].keys() & (D.get_args(n) | D.Dist_args)
             args = {k: D.node[n][k] for k in varset}
             print('root node; keys: ', list(args.keys()))
